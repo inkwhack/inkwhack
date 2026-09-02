@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How InkWhack handles personal information and eBay account data.">
+  <meta name="theme-color" content="#111116">
+  <title>Privacy Policy — InkWhack</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="InkWhack home">
+      <span class="brand-mark" aria-hidden="true">IW</span>
+      <span>InkWhack</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="/">Home</a>
+    </nav>
+  </header>
+
+  <main class="policy-shell">
+    <aside class="policy-intro">
+      <p class="eyebrow">Privacy</p>
+      <h1>Privacy Policy</h1>
+      <p class="policy-date">Last updated 2 September 2026</p>
+      <p>This notice explains, in plain English, how InkWhack may handle personal information when people visit this website or connect an eBay seller account to InkWhack’s private marketplace-management software.</p>
+    </aside>
+
+    <article class="policy-content">
+      <section>
+        <h2>1. About InkWhack</h2>
+        <p>InkWhack is the name used for an independent apparel and design project and its private product and marketplace-management software. The public storefront is currently being prepared. The eBay connection described below is intended for the operator’s own seller account; InkWhack is not presently offering a public multi-user account service.</p>
+      </section>
+
+      <section>
+        <h2>2. Information that may be processed</h2>
+        <p>Depending on the feature being used, InkWhack may process:</p>
+        <ul>
+          <li>ordinary technical request information supplied when a browser contacts the website or API, such as IP address, request time, requested URL, browser information and security diagnostics;</li>
+          <li>information returned by eBay for an authorised seller account, such as an eBay user or account identifier, seller status, marketplace, selling privileges, inventory locations and business-policy identifiers;</li>
+          <li>product, inventory, offer and listing information needed to prepare, create, review or update eBay listings;</li>
+          <li>OAuth connection information, including short-lived authorisation codes and access or refresh tokens; and</li>
+          <li>limited operational records needed to diagnose a failed marketplace request or confirm that an authorised operation took place.</li>
+        </ul>
+        <p>InkWhack does not intentionally collect special-category information through this public website.</p>
+      </section>
+
+      <section>
+        <h2>3. Why information is used</h2>
+        <p>Information is used only where needed to operate the website, protect the service, connect the authorised eBay seller account, prepare or manage marketplace listings, troubleshoot requested operations, meet legal obligations, and respond to valid privacy or deletion requests.</p>
+        <p>Depending on the circumstances, the intended lawful bases are taking steps to provide requested connected functionality, legitimate interests in operating and securing InkWhack and its marketplace tools, and compliance with applicable legal obligations. These bases will be reviewed as the public service develops.</p>
+      </section>
+
+      <section>
+        <h2>4. eBay OAuth authorisation</h2>
+        <p>When the operator chooses to connect eBay, the browser is sent to eBay’s own sign-in and consent pages. eBay returns a short-lived authorisation response to InkWhack’s HTTPS callback. A random state value is checked to protect the flow against cross-site request forgery.</p>
+        <p>The callback encrypts the authorisation code for one-time transfer to the local InkWhack application. The local application exchanges it directly with eBay. eBay access and refresh tokens are then encrypted and retained locally so that authorised eBay features can operate. Client secrets, OAuth tokens and private credentials are not intentionally placed in public website files, browser scripts, GitHub or public catalogue data.</p>
+        <p>Authorising InkWhack does not disclose an eBay password to InkWhack. Access can be withdrawn through the relevant eBay account controls, and a disconnected or revoked connection will need to be authorised again before connected features can resume.</p>
+      </section>
+
+      <section>
+        <h2>5. eBay account-deletion notifications</h2>
+        <p>InkWhack maintains an endpoint for eBay Marketplace Account Deletion notifications. The present endpoint validates and acknowledges suitably formed notifications but is not yet connected to an automatic deletion routine and does not intentionally persist the notification payload.</p>
+        <p>Where InkWhack holds eBay-related personal information that must be removed following a valid request or marketplace notification, it will be reviewed and deleted or anonymised unless retention is required for legal, security, dispute-resolution or record-keeping reasons. No product, listing or account data is deleted automatically by the current notification handler.</p>
+      </section>
+
+      <section>
+        <h2>6. Cookies and browser storage</h2>
+        <p>This minimal public website does not set its own cookies, run analytics or advertising scripts, or use local browser storage. Hosting and network providers may process ordinary request and security information when delivering the site. If the future storefront introduces optional preferences, analytics, checkout tools or other browser storage, this notice and any required consent controls will be updated before those features are enabled.</p>
+      </section>
+
+      <section>
+        <h2>7. Service providers and international processing</h2>
+        <p>The current public pages are served using GitHub Pages. Cloudflare provides DNS and may provide API, security and delivery services for InkWhack domains. eBay provides seller authorisation and marketplace services. These providers process information under their own terms and privacy notices and may process it in countries outside the United Kingdom.</p>
+        <ul class="link-list">
+          <li><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a></li>
+          <li><a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</a></li>
+          <li><a href="https://www.ebay.co.uk/help/policies/member-behaviour-policies/user-privacy-notice-privacy-policy?id=4260">eBay User Privacy Notice</a></li>
+        </ul>
+        <p>Information is not intentionally sold by InkWhack. It may be disclosed where necessary to operate an authorised service, investigate abuse, protect legal rights, or comply with a lawful requirement.</p>
+      </section>
+
+      <section>
+        <h2>8. Retention</h2>
+        <p>OAuth relay sessions expire after approximately ten minutes and are designed for one-time retrieval. eBay access and refresh tokens may be retained locally while the connection remains needed, until they expire or are revoked, or until the connection is deliberately removed. Marketplace records and limited diagnostic information are kept only for as long as reasonably needed for their operational, security or legal purpose.</p>
+        <p>A complete formal retention schedule has not yet been adopted. InkWhack will review retained information as the service develops rather than keeping personal information indefinitely merely because it might become useful.</p>
+      </section>
+
+      <section>
+        <h2>9. Security</h2>
+        <p>Current safeguards include HTTPS for public callbacks, server-side secrets, CSRF state checking, short-lived encrypted OAuth relay sessions, one-time retrieval, and encryption of OAuth tokens stored by the local application. Public website publication is separated from private production and artwork systems. No system can be guaranteed completely secure, and safeguards will be reviewed as InkWhack changes.</p>
+      </section>
+
+      <section>
+        <h2>10. Your rights</h2>
+        <p>Depending on the applicable law and circumstances, a person may have rights to be informed, access their personal information, correct inaccurate information, request erasure or restriction, object to certain processing, receive portable information, and complain to the Information Commissioner’s Office. Some rights are qualified and may not apply to every item or purpose.</p>
+        <p><strong>You may object to processing based on legitimate interests.</strong> InkWhack will consider the circumstances and any overriding legal or security reasons for continued processing.</p>
+        <p>Information about UK data-protection rights is available from the <a href="https://ico.org.uk/for-the-public/">Information Commissioner’s Office</a>.</p>
+      </section>
+
+      <section class="contact-notice">
+        <h2>11. Privacy enquiries and deletion requests</h2>
+        <p><strong>A dedicated public InkWhack privacy contact address has not yet been published.</strong> One must be added here before InkWhack begins accepting customer accounts or direct public submissions. Please do not place personal information or credentials in a public GitHub issue.</p>
+        <p>Until that contact channel is established, an eBay user can manage application access through eBay and use eBay’s own privacy-request channels. This page will be updated with a direct InkWhack contact method as soon as an appropriate public address is approved.</p>
+      </section>
+
+      <section>
+        <h2>12. Changes to this notice</h2>
+        <p>This notice may change when the storefront, marketplace integrations, service providers or handling practices change. The latest version will remain at this URL and will show its revision date.</p>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <span>© 2026 InkWhack</span>
+    <a href="/">Home</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "publicationVersion": "ebay-minimal-2026-09-02",
+  "purpose": "Minimal public site for InkWhack and eBay Production OAuth configuration",
+  "approvalStatus": "OPERATOR_APPROVED_LIMITED_DEPLOYMENT",
+  "ownedFiles": [
+    {
+      "path": ".nojekyll",
+      "publicRole": "github-pages-configuration",
+      "mimeType": "text/plain",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "CNAME",
+      "publicRole": "custom-domain-configuration",
+      "mimeType": "text/plain",
+      "bytes": 15,
+      "sha256": "a6e021077a746157800a37915c3da6d1ab02b8c6557c79e8bf121bcc85f5e74e"
+    },
+    {
+      "path": "index.html",
+      "publicRole": "homepage",
+      "mimeType": "text/html",
+      "bytes": 2355,
+      "sha256": "6f2da286f515f034eddab222d60db09423cf2d3c1aa3e408a44ec1c89f8d744f"
+    },
+    {
+      "path": "privacy/index.html",
+      "publicRole": "privacy-policy",
+      "mimeType": "text/html",
+      "bytes": 10107,
+      "sha256": "5e21565a41ba6258ce47fa11ab92bf926650b0a6053fa10ad64977c049dbbb83"
+    },
+    {
+      "path": "assets/styles.css",
+      "publicRole": "public-stylesheet",
+      "mimeType": "text/css",
+      "bytes": 4424,
+      "sha256": "932561c90f610aa03497517de4749b3058309bec346e0b5ae3f286de253a57e8"
+    }
+  ]
+}
