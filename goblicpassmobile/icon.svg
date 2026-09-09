@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="GoblinPass shield">
+  <rect width="512" height="512" rx="116" fill="#1f6b3b"/>
+  <path fill="#fff" d="M256 75 407 133v113c0 102-61 169-151 211-90-42-151-109-151-211V133z"/>
+  <path fill="#1f6b3b" d="M256 168a62 62 0 0 0-27 118v92h54v-92a62 62 0 0 0-27-118zm0 37a25 25 0 1 1 0 50 25 25 0 0 1 0-50z"/>
+</svg>

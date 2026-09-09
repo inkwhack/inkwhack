@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#153d25">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="A private, offline companion for GoblinPass ID mappings.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>GoblinPass Companion</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" hidden>
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="GoblinPass Companion home">
+        <img src="icon.svg" alt="" width="42" height="42">
+        <span><strong>GoblinPass</strong><small>Companion</small></span>
+      </a>
+      <div class="header-actions">
+        <button id="installButton" class="button secondary" hidden>Install app</button>
+        <button id="menuButton" class="icon-button" aria-label="Open menu" aria-expanded="false">⋮</button>
+        <div id="menu" class="menu" hidden>
+          <button id="backupButton">Create encrypted backup</button>
+          <button id="restoreButton">Restore encrypted backup</button>
+          <button id="lockButton">Lock now</button>
+          <button id="aboutButton">Privacy &amp; security</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="pageTitle">
+        <div>
+          <p class="eyebrow">Private · offline · yours</p>
+          <h1 id="pageTitle">Your ID mappings</h1>
+          <p>Store identifiers and service names only—never passwords, PINs, or recovery keys.</p>
+        </div>
+        <button id="addButton" class="button primary"><span aria-hidden="true">＋</span> Add mapping</button>
+      </section>
+
+      <section class="content-card" aria-label="Saved mappings">
+        <label class="search">
+          <span aria-hidden="true">⌕</span>
+          <span class="sr-only">Search mappings</span>
+          <input id="searchInput" type="search" placeholder="Search ID, name, or category" autocomplete="off" maxlength="100">
+        </label>
+        <div class="list-meta"><span id="resultCount">0 mappings</span><span id="offlineStatus">Ready offline</span></div>
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon" aria-hidden="true">#</div>
+          <h2>No mappings yet</h2>
+          <p>Add your first ID and the service it represents.</p>
+        </div>
+        <ul id="mappingList" class="mapping-list" aria-live="polite"></ul>
+      </section>
+    </main>
+
+    <footer><span>Data stays on this device</span><span aria-hidden="true">•</span><span>No tracking or adverts</span></footer>
+  </div>
+
+  <section id="lockScreen" class="lock-screen" aria-labelledby="lockTitle">
+    <div class="lock-card">
+      <img src="icon.svg" alt="" width="86" height="86">
+      <p class="eyebrow">GoblinPass Companion</p>
+      <h1 id="lockTitle">Mappings locked</h1>
+      <p id="lockMessage">Use your device fingerprint, face, or screen lock to continue.</p>
+      <button id="unlockButton" class="button primary wide">Unlock</button>
+      <button id="setupButton" class="button secondary wide" hidden>Set up device unlock</button>
+      <p id="lockSupport" class="fine-print"></p>
+    </div>
+  </section>
+
+  <dialog id="entryDialog">
+    <form id="entryForm" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">ID mapping</p><h2 id="entryTitle">Add mapping</h2></div><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></div>
+      <p class="notice">Only enter an ID and service name. Do not enter a password or other secret.</p>
+      <label>ID <input id="entryId" required maxlength="32" pattern="[A-Za-z0-9][A-Za-z0-9._-]{0,31}" placeholder="001" autocomplete="off"></label>
+      <label>Name <input id="entryName" required maxlength="100" placeholder="Amazon" autocomplete="off"></label>
+      <label>Category
+        <select id="entryCategory">
+          <option value="">No category</option><option>Shopping</option><option>Banking</option><option>Email</option><option>Social</option><option>Work</option><option>Other</option>
+        </select>
+      </label>
+      <p id="entryError" class="error" role="alert"></p>
+      <div class="dialog-actions"><button class="button secondary" value="cancel">Cancel</button><button id="saveEntryButton" class="button primary" value="default">Save</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="deleteDialog">
+    <form method="dialog">
+      <h2>Delete this mapping?</h2><p id="deleteMessage"></p>
+      <div class="dialog-actions"><button class="button secondary" value="cancel">Cancel</button><button id="confirmDelete" class="button danger" value="default">Delete</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="passwordDialog">
+    <form id="passwordForm" method="dialog">
+      <h2 id="passwordTitle">Encrypted backup</h2><p id="passwordDescription"></p>
+      <label>Backup password <input id="backupPassword" type="password" minlength="12" maxlength="256" required autocomplete="new-password"></label>
+      <label id="confirmPasswordLabel">Confirm password <input id="confirmPassword" type="password" minlength="12" maxlength="256" autocomplete="new-password"></label>
+      <p id="passwordError" class="error" role="alert"></p>
+      <div class="dialog-actions"><button class="button secondary" value="cancel">Cancel</button><button id="passwordConfirm" class="button primary" value="default">Continue</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="aboutDialog">
+    <form method="dialog">
+      <div class="dialog-heading"><h2>Privacy &amp; security</h2><button class="icon-button close-dialog" value="cancel" aria-label="Close">×</button></div>
+      <div class="prose">
+        <p>GoblinPass Companion stores mappings only in this browser. It has no analytics, adverts, trackers, accounts, or network API.</p>
+        <p>Mappings are encrypted with a non-exportable Web Crypto key stored by this browser. Device unlock uses WebAuthn where available. This local browser gate is not equivalent to Android Keystore protection and cannot protect a compromised device or browser profile.</p>
+        <p>Encrypted backup files use PBKDF2-SHA-256 and AES-256-GCM. Losing the backup password means the file cannot be recovered.</p>
+      </div>
+      <div class="dialog-actions"><button class="button primary" value="cancel">Done</button></div>
+    </form>
+  </dialog>
+
+  <input id="restoreFile" type="file" accept=".gpc,application/json" hidden>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "GoblinPass Companion",
+  "short_name": "GoblinPass",
+  "description": "A private, offline companion for GoblinPass ID mappings.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "background_color": "#f5f7f3",
+  "theme_color": "#153d25",
+  "orientation": "any",
+  "categories": ["utilities", "security", "productivity"],
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
