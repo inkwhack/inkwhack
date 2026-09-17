@@ -1,4 +1,9 @@
 #survivors{position:absolute;bottom:38px;left:32px;display:flex;gap:16px;pointer-events:none}
+#bill-card{--portrait-border:#91a27a}#zoey-card{--portrait-border:#c9776a}#chloe-card{--portrait-border:#d8a263}
+.survivor-card .survivor-portrait{border-color:var(--portrait-border,#858b7d);background:#1c2421}
+.survivor-card .survivor-portrait img.survivor-cover{width:100%;height:100%;object-fit:cover;object-position:center;transform:none}
+.survivor-card.controlled{border-color:#d4e58e;box-shadow:inset 3px 0 #d4e58e,0 3px 14px #0009}
+.survivor-card.incapacitated .survivor-portrait img.survivor-cover{filter:sepia(.3) saturate(.6);width:100%;height:100%;object-fit:cover;transform:none}
 .survivor-card{--health-color:#76c934;display:flex;width:260px;height:94px;padding:8px;background:linear-gradient(120deg,#151b19f5,#090d0cec);border:1px solid #71816a;box-shadow:0 3px 14px #0009;color:#eaece7;gap:10px}
 .survivor-card.red{--health-color:#db3935}.survivor-card.orange{--health-color:#eca536}.survivor-card.dead{--health-color:#695c5b}
 .survivor-portrait{position:relative;flex:0 0 58px;height:76px;overflow:hidden;background:#334039;border:1px solid #858b7d}
@@ -26,3 +31,12 @@
 
 .character-switch{position:fixed;right:32px;top:85px;z-index:4;padding:9px 12px;font:10px monospace;letter-spacing:.5px;background:#15211dcc;color:#dce4b4;border:1px solid #78826a;cursor:pointer}.character-switch:hover{background:#354437}
 .character-switch{width:auto;max-width:calc(100vw - 64px);margin:0;text-align:center}
+
+@media(max-width:950px){.survivor-card{width:calc((100vw - 96px)/3)}}
+@media(max-width:650px){.survivor-card{width:calc((100vw - 40px)/3);gap:5px}.survivor-portrait{flex-basis:32px}.survivor-heading{font-size:8px}.survivor-heading strong{font-size:16px}}
+
+.you-badge{display:none;position:absolute;bottom:0;left:0;right:0;padding:2px 0;background:#d4e58e;color:#17201b;text-align:center;font-size:9px;font-weight:bold;letter-spacing:1px;line-height:1.1}.survivor-card.controlled .you-badge{display:block}.survivor-card.controlled .survivor-heading b{color:#e8f7a3;text-shadow:0 0 7px #d4e58e55}.survivor-card.controlled .survivor-portrait{border-color:#d4e58e}.survivor-card.controlled .down-symbol{bottom:16px}body.mobile .you-badge{font-size:6px;letter-spacing:.5px;padding:1px 0}body.mobile .survivor-card.controlled .down-symbol{bottom:10px}
+
+.auto-use-toggle{position:fixed;top:85px;right:285px;z-index:4;width:auto;min-height:36px;padding:9px 12px;margin:0;font:10px monospace;letter-spacing:.5px;color:#e8f7a3;background:#15211dcc;border:1px solid #a9ba76;text-align:center}.auto-use-toggle[hidden]{display:none}.auto-use-toggle[aria-pressed="false"]{color:#b7c1b0;border-color:#677260}
+
+.auto-use-toggle:hover{background:#28372b;color:#e8f7a3}.auto-use-toggle[aria-pressed="false"]:hover{background:#28372b;color:#b7c1b0}

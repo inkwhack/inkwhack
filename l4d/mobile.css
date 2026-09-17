@@ -8,3 +8,10 @@ body.mobile canvas{height:100dvh;width:100vw}
 body.mobile .touch-actions{grid-template-columns:repeat(4,minmax(0,1fr));left:140px;right:140px;gap:5px}body.mobile .touch-actions button{min-height:44px;font-size:10px}body.mobile .touch-actions .jump-bar{grid-column:1/-1;min-height:48px;font-size:14px;background:#728249e8;border-color:#d4e4a0;border-radius:8px}body.mobile .touch-actions button:disabled{opacity:.4}body.mobile #mobile-pause{position:absolute;top:8px;left:150px;width:44px;min-height:36px;margin:0;padding:4px;pointer-events:auto;background:#17221edb;color:#e2e9bb;border:1px solid #889773aa;font-size:19px;touch-action:none}body.mobile #context{bottom:170px}body.mobile #zoey-dialogue{bottom:176px}body.mobile #weapon-state{max-width:145px}
 @media(orientation:portrait){body.mobile .touch-actions{left:12px;right:12px;grid-template-columns:repeat(4,minmax(0,1fr))}body.mobile .touch-stick{bottom:178px}body.mobile #context{bottom:302px}body.mobile #zoey-dialogue{bottom:313px}}
 @media(orientation:landscape) and (max-width:740px){body.mobile .touch-actions{left:130px;right:130px;grid-template-columns:repeat(4,minmax(0,1fr))}body.mobile .touch-actions button{font-size:9px}}
+
+@media(orientation:landscape){body.mobile #survivors{flex-direction:column}}
+@media(orientation:portrait){body.mobile .survivor-card{width:calc((100vw - 36px)/3)}body.mobile .survivor-portrait{flex-basis:24px}body.mobile .survivor-heading{font-size:7px}body.mobile .survivor-heading strong{font-size:12px}}
+
+body.mobile .auto-use-toggle{top:8px;left:204px;right:auto;width:108px;min-height:44px;padding:6px 3px;font-size:7px}body.mobile .character-switch{width:134px;max-width:134px;font-size:7px;min-height:44px;padding:6px 3px}body.mobile #hud{top:58px}body.mobile #survivors{top:58px}
+
+@media(orientation:portrait){body.mobile .auto-use-toggle{top:56px;left:68px}body.mobile #mobile-pause{top:56px;left:12px;min-height:44px}body.mobile #hud,body.mobile #survivors{top:106px}}
