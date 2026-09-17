@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="mobile.css">
 </head>
 <body>
+  <div id="controller-status" role="status" aria-live="polite" hidden>Controller connected <span>Keyboard &amp; mouse also available</span></div>
+  <div id="witch-notification" role="alert" hidden></div>
   <canvas id="game" aria-label="Deadwalk, a 2D zombie survival shooter"></canvas>
   <header><div class="brand">DEAD<span>WALK</span><small>ROOFTOP TO SUBWAY</small></div><div class="tag">APARTMENTS / SAFE ROOM</div></header>
   <section id="hud"><div><small>SUPPLIES / STAMINA</small><span id="stamina"></span></div><div><small>CURRENT LOCATION</small><strong id="objective">ROOFTOP</strong></div><div><small>DISTRICT</small><strong id="wave">CALM</strong></div><div class="ammo"><small id="weapon-name">PISTOL</small><strong id="ammo">15 <em>/ 90</em></strong><span id="weapon-state"></span></div><div><small>SHARED SCRAP</small><strong id="scrap">3</strong></div></section>
@@ -36,6 +38,8 @@
   </div>
   <script src="survival.js"></script>
   <script src="sound-library.js"></script>
+  <script src="environment.js"></script>
+  <script src="lighting.js"></script>
   <script src="game.js"></script>
 </body>
 </html>
