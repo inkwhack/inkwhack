@@ -15,3 +15,58 @@ body.mobile .touch-actions{grid-template-columns:repeat(4,minmax(0,1fr));left:14
 body.mobile .auto-use-toggle{top:8px;left:204px;right:auto;width:108px;min-height:44px;padding:6px 3px;font-size:7px}body.mobile .character-switch{width:134px;max-width:134px;font-size:7px;min-height:44px;padding:6px 3px}body.mobile #hud{top:58px}body.mobile #survivors{top:58px}
 
 @media(orientation:portrait){body.mobile .auto-use-toggle{top:56px;left:68px}body.mobile #mobile-pause{top:56px;left:12px;min-height:44px}body.mobile #hud,body.mobile #survivors{top:106px}}
+/* Portrait phones look into the same world through a close camera window. */
+.portrait-only{display:none}
+body.mobile.portrait-mobile header,body.mobile.portrait-mobile #hud,body.mobile.portrait-mobile .auto-use-toggle{display:none}
+body.mobile.portrait-mobile #survivors{top:max(8px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left));right:max(62px,calc(env(safe-area-inset-right) + 62px));bottom:auto;gap:4px;flex-direction:row;justify-content:stretch}
+body.mobile.portrait-mobile .survivor-card{width:0;flex:1;min-width:0;height:48px;padding:4px;gap:4px;background:#101a17b8}
+body.mobile.portrait-mobile .survivor-portrait{flex-basis:24px;height:36px}
+body.mobile.portrait-mobile .survivor-vitals{flex:1;min-width:0}
+body.mobile.portrait-mobile .survivor-heading{font-size:7px;letter-spacing:0}
+body.mobile.portrait-mobile .survivor-heading strong{font-size:11px}
+body.mobile.portrait-mobile .survivor-vitals>span{font-size:5px}
+body.mobile.portrait-mobile #mobile-pause{top:max(8px,env(safe-area-inset-top));left:auto;right:max(10px,env(safe-area-inset-right));width:44px;min-height:44px;border-radius:8px;background:#101a17b8}
+body.mobile.portrait-mobile .character-switch{top:max(64px,calc(env(safe-area-inset-top) + 62px));left:10px;right:auto;width:132px;max-width:132px;min-height:36px;background:#101a1780;border-color:#73866a66}
+body.mobile.portrait-mobile #portrait-threats{display:block;position:absolute;top:max(72px,calc(env(safe-area-inset-top) + 70px));right:10px;max-width:52%;text-align:right;color:#c8d0b8;font:9px/1.4 monospace;text-shadow:0 2px 3px #000;pointer-events:none}
+body.mobile.portrait-mobile .touch-stick{width:88px;height:88px;bottom:max(72px,calc(env(safe-area-inset-bottom) + 64px));opacity:.5;transition:opacity .15s;background:#15221a55;border-color:#c7d39a55}
+body.mobile.portrait-mobile .touch-stick.active{opacity:1}
+body.mobile.portrait-mobile .stick-thumb{width:32px;height:32px;background:#cad79344}
+body.mobile.portrait-mobile #move-stick{left:max(12px,env(safe-area-inset-left))}
+body.mobile.portrait-mobile #aim-stick{right:max(12px,env(safe-area-inset-right))}
+body.mobile.portrait-mobile .touch-actions{left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:max(178px,calc(env(safe-area-inset-bottom) + 170px));display:flex;justify-content:space-between;gap:8px;pointer-events:none}
+body.mobile.portrait-mobile .touch-actions button{pointer-events:auto;flex:0 1 100px;width:100px;min-height:44px;border-radius:8px;background:#15221a80;border-color:#9aa68066;font-size:10px;opacity:.62}
+body.mobile.portrait-mobile .touch-actions .jump-bar{grid-column:auto;font-size:11px;min-height:44px}
+body.mobile.portrait-mobile .touch-actions [data-touch=light],body.mobile.portrait-mobile .touch-actions [data-touch=gun],body.mobile.portrait-mobile .touch-actions [data-touch=grenade],body.mobile.portrait-mobile .touch-actions [data-touch=pills],body.mobile.portrait-mobile .touch-actions [data-touch=adrenaline],body.mobile.portrait-mobile .touch-actions [data-touch=kit]{display:none!important}
+body.mobile.portrait-mobile .touch-actions button.held{opacity:1;background:#708547bd}
+body.mobile.portrait-mobile #portrait-shelf{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:6px;position:absolute;bottom:max(8px,env(safe-area-inset-bottom));left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));pointer-events:auto}
+body.mobile.portrait-mobile #portrait-shelf button,body.mobile.portrait-mobile #portrait-items button,body.mobile.portrait-mobile .portrait-reload{min-height:44px;width:auto;margin:0;padding:7px 3px;background:#101c188c;border:1px solid #93a47877;border-radius:8px;color:#dbe2c2;font:bold 10px monospace;letter-spacing:0;touch-action:none}
+body.mobile.portrait-mobile #portrait-shelf button.held,body.mobile.portrait-mobile #portrait-items button.held{background:#708547;opacity:1}
+body.mobile.portrait-mobile #portrait-items{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;position:absolute;bottom:max(62px,calc(env(safe-area-inset-bottom) + 60px));left:12px;right:12px;padding:10px;background:#081510f5;border:1px solid #93a47877;border-radius:10px;pointer-events:auto;z-index:8}
+body.mobile.portrait-mobile #portrait-items[hidden],body.mobile.portrait-mobile .portrait-only[hidden]{display:none}
+body.mobile.portrait-mobile .portrait-reload{display:block;position:absolute;right:12px;bottom:max(128px,calc(env(safe-area-inset-bottom) + 128px));min-width:88px;pointer-events:auto;z-index:6}
+body.mobile.portrait-mobile #context{bottom:max(232px,calc(env(safe-area-inset-bottom) + 226px));left:12px;right:12px;max-width:none;font-size:10px;background:#0b1714a8;padding:6px;border-radius:5px}
+body.mobile.portrait-mobile #context:empty{display:none}
+body.mobile.portrait-mobile #zoey-dialogue{bottom:max(240px,calc(env(safe-area-inset-bottom) + 234px));left:12px;right:12px;font-size:10px;background:#0b1714bf}
+body.mobile.portrait-mobile #announcement{top:19%;font-size:11px;padding:0 8%;text-shadow:0 2px 4px #000}
+body.mobile.portrait-mobile #controller-status{top:108px;font-size:9px}
+/* Reference composition: nearby teammates, circular thumb actions, supplies left/ammo right. */
+.portrait-glyph{display:none}
+body.mobile.portrait-mobile .portrait-glyph{display:block;line-height:0;margin:0 auto 2px;width:24px;height:24px}
+body.mobile.portrait-mobile .portrait-glyph svg{width:24px;height:24px}
+body.mobile.portrait-mobile .touch-actions{display:block;height:150px;bottom:max(72px,calc(env(safe-area-inset-bottom) + 64px))}
+body.mobile.portrait-mobile .touch-actions button{position:absolute;width:48px;height:48px;min-height:48px;min-width:48px;border-radius:50%;padding:4px 2px;font-size:7px;line-height:9px;letter-spacing:0;background:#14201999}
+body.mobile.portrait-mobile .touch-actions .jump-bar{right:100px;bottom:54px;min-height:48px;font-size:7px}
+body.mobile.portrait-mobile .touch-actions [data-touch=shove]{right:0;bottom:110px}
+body.mobile.portrait-mobile .touch-actions [data-touch=use]{left:50%;transform:translateX(-50%);bottom:110px;width:88px;border-radius:8px;font-size:10px}
+body.mobile.portrait-mobile .portrait-reload{right:70px;bottom:max(184px,calc(env(safe-area-inset-bottom) + 176px))}
+body.mobile.portrait-mobile #portrait-shelf{grid-template-columns:1fr 1fr 1.6fr}
+body.mobile.portrait-mobile #portrait-health{grid-column:1;grid-row:1}
+body.mobile.portrait-mobile #portrait-shelf [data-touch=grenade]{grid-column:2;grid-row:1}
+body.mobile.portrait-mobile #portrait-weapon{grid-column:3;grid-row:1}
+body.mobile.portrait-mobile #portrait-threats{white-space:pre-line}
+body.mobile.portrait-mobile #aim-stick .stick-thumb{background:#13201866;border-color:#ccd3bd99}
+body.mobile.portrait-mobile #aim-stick .stick-thumb::before,body.mobile.portrait-mobile #aim-stick .stick-thumb::after{content:'';position:absolute;background:#ccd3bd99;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+body.mobile.portrait-mobile #aim-stick .stick-thumb::before{height:1px;width:42px}
+body.mobile.portrait-mobile #aim-stick .stick-thumb::after{width:1px;height:42px}
+body.mobile.portrait-mobile .touch-actions button{display:flex;flex-direction:column;align-items:center;justify-content:center}
+body.mobile.portrait-mobile .touch-actions button[hidden]{display:none}
