@@ -2,25 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Deadwalk — No Mercy — Apartments</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="survivor-hud.css">
+  <link rel="stylesheet" href="mobile.css">
 </head>
 <body>
   <canvas id="game" aria-label="Deadwalk, a 2D zombie survival shooter"></canvas>
   <header><div class="brand">DEAD<span>WALK</span><small>ROOFTOP TO SUBWAY</small></div><div class="tag">APARTMENTS / SAFE ROOM</div></header>
   <section id="hud"><div><small>SUPPLIES / STAMINA</small><span id="stamina"></span></div><div><small>CURRENT LOCATION</small><strong id="objective">ROOFTOP</strong></div><div><small>DISTRICT</small><strong id="wave">CALM</strong></div><div class="ammo"><small id="weapon-name">PISTOL</small><strong id="ammo">15 <em>/ 90</em></strong><span id="weapon-state"></span></div><div><small>SHARED SCRAP</small><strong id="scrap">3</strong></div></section>
   <div id="telemetry"><div><small>BARREL HEAT</small><i><b id="heat"></b></i></div><div><small>DISTRICT NOISE</small><i><b id="noise"></b></i></div><div><small>THIS SPAN'S RESONANCE</small><i><b id="resonance"></b></i></div></div>
-  <div id="intro" class="overlay"><div class="panel"><div class="eyebrow">THE CITY HAS GONE QUIET.</div><h1>REACH THE<br><span>SAFE ROOM.</span></h1><p>Start on the rooftop. Descend two staircases and drop through the broken floor.<br>Cross the alley and hotel street. Take the subway steps to the safe room.<br>Get Bill and Zoey inside, then close the red door with E.<br>Start with a pistol. Loot pipe bombs with E; throw with T.<br>Zoey follows, covers you, and rescues you.<br>Hunters pounce. Smokers grapple. Boomer goo calls a horde.</p><button id="start">LEAVE THE ROOFTOP <span>→</span></button><div class="instructions"><b>A / D</b> move · <b>SPACE</b> jump · <b>C / CTRL</b> crouch · <b>SHIFT</b> sprint<br><b>MOUSE</b> aim/fire · <b>WHEEL</b> weapons · <b>R</b> reload · <b>F</b> shove · <b>L</b> flashlight<br><b>E</b> loot / safe-room door · <b>H</b> heal<br><b>T</b> throw pipe bomb · <b>Q</b> gate (2 scrap) · <b>G</b> lure (1 scrap)<br><b>TAB</b> switch Bill / Zoey · <b>ESC</b> pause · <b>M</b> sound</div><div class="note">Shoot or shove specials off your teammate. Keep clear of Boomers!<br>Local co-op: controller START takes over the companion · sticks move/aim · RT fire<br>A jump · X interact · Y reload · LB shove · B heal · RB pipe bomb · D-pad up gate / down lure / left flashlight</div></div></div>
+  <div id="intro" class="overlay"><div class="panel"><div class="eyebrow">THE CITY HAS GONE QUIET.</div><h1>REACH THE<br><span>SAFE ROOM.</span></h1><p>Start on the rooftop. Descend two staircases and drop through the broken floor.<br>Cross the alley and hotel street. Take the subway steps to the safe room.<br>Get Bill and Zoey inside, then close the red door with E.<br>Start with a pistol. Loot pipe bombs with E; throw with G.<br>Your teammate follows, covers you, and rescues you.<br><span class="mobile-help">Phone: landscape works best. Left stick moves; right stick aims and fires. Hold USE to revive. Tap GUN to switch weapons.</span><br>Hunters pounce. Smokers grapple. Boomer goo calls a horde.</p><button id="start">LEAVE THE ROOFTOP <span>→</span></button><div class="instructions"><b>A / D</b> move · <b>SPACE</b> jump · <b>C / CTRL</b> crouch · <b>SHIFT</b> sprint<br><b>MOUSE</b> aim/fire · <b>WHEEL</b> weapons · <b>R</b> reload · <b>F</b> shove · <b>L</b> flashlight<br><b>E</b> loot / safe-room door · <b>H</b> heal<br><b>G / T</b> throw pipe bomb · <b>Q</b> gate (2 scrap)<br><b>TAB</b> switch Bill / Zoey · <b>ESC</b> pause · <b>M</b> sound</div><div class="note">Shoot or shove specials off your teammate. Keep clear of Boomers!<br>Local co-op: controller START takes over the companion · sticks move/aim · RT fire<br>A jump · X interact · Y reload · LB shove · B heal · RB pipe bomb · D-pad up gate / down lure / left flashlight</div></div></div>
   <section id="survivors" aria-label="Survivor health" aria-live="polite"><div id="bill-card" class="survivor-card green"><div class="survivor-portrait"><img src="assets/characters/bill-pistol.png" alt="Bill"><span class="down-symbol">▼</span></div><div class="survivor-vitals"><div class="survivor-heading"><b>BILL</b><strong id="bill-hp">+100</strong></div><div class="survivor-health"><i id="health"><span id="bill-temp" class="temp-health"></span></i></div><span id="bill-state">STANDING</span><div class="revive-progress"><i id="bill-revive"></i></div></div></div><div id="zoey-card" class="survivor-card green"><div class="survivor-portrait"><img src="assets/characters/zoey-pistol.png" alt="Zoey"><span class="down-symbol">▼</span></div><div class="survivor-vitals"><div class="survivor-heading"><b>ZOEY</b><strong id="zoey-hp">+100</strong></div><div class="survivor-health"><i id="partner-health"><span id="zoey-temp" class="temp-health"></span></i></div><span id="zoey-state">STANDING</span><div class="revive-progress"><i id="zoey-revive"></i></div></div></div></section>
   <div id="zoey-dialogue" role="status"></div>
   <div id="pause" class="overlay hidden"><div class="panel"><div class="eyebrow">TAKE A BREATH</div><h1>PAUSED.</h1><button id="resume">RESUME →</button></div></div>
   <div id="death" class="overlay hidden"><div class="panel"><div class="eyebrow" id="ending-label">THE HORDE ENDURES</div><h1 id="ending-title">OVERRUN.</h1><p id="result"></p><button id="restart">NEW RUN →</button></div></div>
   <button id="switch-character" class="character-switch" style="display:none">PLAYING BILL · SWITCH [TAB]</button>
-  <footer><span>A/D MOVE · R RELOAD · F SHOVE · L FLASHLIGHT · E INTERACT · 4 PILLS · 5 ADREN · 6 KIT · H USE · T PIPE BOMB · Q GATE · G LURE</span><span id="sound">M SOUND ON</span></footer>
+  <footer><span>A/D MOVE · R RELOAD · F SHOVE · L FLASHLIGHT · E INTERACT · 4 PILLS · 5 ADREN · 6 KIT · H USE · G / T PIPE BOMB · Q GATE</span><span id="sound">M SOUND ON</span></footer>
   <div id="context"></div><div id="run-info"></div>
   <div id="announcement"></div>
+  <div id="touch-controls" aria-label="Touch game controls" hidden>
+    <div id="move-stick" class="touch-stick" role="group" aria-label="Move joystick"><span class="stick-thumb"></span><b>MOVE</b></div>
+    <div id="aim-stick" class="touch-stick" role="group" aria-label="Aim and fire joystick"><span class="stick-thumb"></span><b>AIM / FIRE</b></div>
+    <div class="touch-actions">
+      <button data-touch="jump">JUMP</button><button data-touch="sprint">RUN</button><button data-touch="crouch" aria-pressed="false">CROUCH</button><button data-touch="shove">SHOVE</button><button data-touch="use">USE / LOOT</button><button data-touch="reload">RELOAD</button>
+      <button data-touch="light">LIGHT</button><button data-touch="gun">GUN</button><button data-touch="pills">PILLS</button><button data-touch="adrenaline">ADREN</button><button data-touch="kit">KIT</button><button data-touch="heal">HEAL</button>
+      <button data-touch="grenade">PIPE BOMB</button><button data-touch="pause">PAUSE</button><button data-touch="mute">SOUND</button>
+    </div>
+  </div>
   <script src="survival.js"></script>
   <script src="sound-library.js"></script>
   <script src="game.js"></script>
