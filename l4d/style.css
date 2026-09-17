@@ -32,3 +32,13 @@ body{font-family:Consolas,'Courier New',monospace}.brand,h1,#announcement{font-f
 #witch-notification{position:absolute;z-index:15;left:50%;top:22%;transform:translateX(-50%);max-width:calc(100vw - 32px);padding:10px 18px;background:#261515ee;border:1px solid #e1856d;border-left:4px solid #ff987d;border-radius:3px;color:#ffe6d8;font:bold 15px monospace;text-align:center;text-shadow:0 1px 2px #000;pointer-events:none}#witch-notification[hidden]{display:none}@media(max-width:650px){#witch-notification{font-size:12px;padding:8px 12px}}
 
 .menu-version{position:absolute;top:max(14px,env(safe-area-inset-top));right:24px;padding:7px 10px;border:1px solid #65745e;background:#10191aeb;color:#d4de89;font:12px Consolas,monospace;letter-spacing:1px;pointer-events:none}@media(max-width:650px){.menu-version{right:12px;font-size:11px}}
+
+#controller-debug{position:fixed;z-index:70;right:16px;top:64px;width:min(480px,calc(100vw - 32px));max-height:calc(100vh - 80px);overflow:auto;padding:18px;background:#0d1b19f5;border:2px solid #cbd879;color:#d4de89;box-shadow:0 0 0 100vmax #0009}#controller-debug[hidden]{display:none}#controller-debug h2{font-size:17px;margin:0 0 12px}#controller-debug pre{font:12px/1.4 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;color:#d4e0d1}#controller-debug button{min-height:44px;padding:12px;margin:12px 0 0}.input-settings button{min-height:44px;padding:12px;font-size:12px;letter-spacing:1px}.input-status{color:#edd49b}
+
+.controls-overlay{z-index:55;background:rgba(5,10,10,.95)}
+.controls-overlay[hidden]{display:none}
+.controls-overlay h2{font-size:32px;margin:8px 0 20px}
+.controls-overlay .controller-settings label button{margin:0;padding:10px;font-size:13px}
+[data-open-controls]{margin-top:12px}
+
+.debug-buttons{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.debug-buttons span{border:1px solid #5b6660;padding:6px 9px;font:12px monospace;color:#aab4ae}.debug-buttons span.active{background:#d6ee6d;color:#101810;box-shadow:0 0 8px #bde54b}
