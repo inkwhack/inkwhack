@@ -42,3 +42,5 @@ body{font-family:Consolas,'Courier New',monospace}.brand,h1,#announcement{font-f
 [data-open-controls]{margin-top:12px}
 
 .debug-buttons{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.debug-buttons span{border:1px solid #5b6660;padding:6px 9px;font:12px monospace;color:#aab4ae}.debug-buttons span.active{background:#d6ee6d;color:#101810;box-shadow:0 0 8px #bde54b}
+
+.secret-room-active header,.secret-room-active #hud,.secret-room-active #telemetry,.secret-room-active #announcement,.secret-room-active #run-info,.secret-room-active #context,.secret-room-active #switch-character,.secret-room-active #auto-use-items,.secret-room-active #survivors,.secret-room-active footer{visibility:hidden!important}
