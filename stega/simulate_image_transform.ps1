@@ -2,17 +2,24 @@ param(
   [Parameter(Mandatory=$true)][string]$InputBmp,
   [Parameter(Mandatory=$true)][string]$OutputBmp,
   [Parameter(Mandatory=$true)][double]$Scale,
-  [Parameter(Mandatory=$true)][int]$Quality
+  [Parameter(Mandatory=$true)][int]$Quality,
+  [double]$Crop = 0
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
 $source = [System.Drawing.Image]::FromFile($InputBmp)
-$width = [Math]::Max(8, [Math]::Round($source.Width * $Scale))
-$height = [Math]::Max(8, [Math]::Round($source.Height * $Scale))
+$cropX = [Math]::Round($source.Width * $Crop)
+$cropY = [Math]::Round($source.Height * $Crop)
+$sourceWidth = $source.Width - 2 * $cropX
+$sourceHeight = $source.Height - 2 * $cropY
+$width = [Math]::Max(8, [Math]::Round($sourceWidth * $Scale))
+$height = [Math]::Max(8, [Math]::Round($sourceHeight * $Scale))
 $resized = New-Object System.Drawing.Bitmap($width, $height, [System.Drawing.Imaging.PixelFormat]::Format24bppRgb)
 $graphics = [System.Drawing.Graphics]::FromImage($resized)
 $graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
-$graphics.DrawImage($source, 0, 0, $width, $height)
+$destination = New-Object System.Drawing.Rectangle(0, 0, $width, $height)
+$sourceRectangle = New-Object System.Drawing.Rectangle($cropX, $cropY, $sourceWidth, $sourceHeight)
+$graphics.DrawImage($source, $destination, $sourceRectangle, [System.Drawing.GraphicsUnit]::Pixel)
 $graphics.Dispose()
 $source.Dispose()
 $jpegPath = [System.IO.Path]::ChangeExtension($OutputBmp, '.jpg')
