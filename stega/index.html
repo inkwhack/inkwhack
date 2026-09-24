@@ -13,6 +13,7 @@
 label{display:block;font-size:13px;font-weight:800;margin:17px 0 8px}.field{position:relative} textarea,input{width:100%;border:1px solid var(--border);background:var(--card2);color:var(--text);border-radius:12px;padding:14px;font:inherit;outline:none}textarea{min-height:125px;resize:vertical}textarea:focus,input:focus{border-color:var(--accent)}
 .secret{padding-right:68px}.show{position:absolute;right:8px;top:8px;border:0;background:#252b38;color:#dbe1eb;border-radius:8px;padding:7px 10px;cursor:pointer}
 .primary{width:100%;margin-top:18px;border:0;border-radius:12px;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:900;font-size:15px;cursor:pointer}.primary:hover{filter:brightness(1.08)}
+.primary:disabled{opacity:.5;cursor:not-allowed;filter:none}
 .out{margin-top:20px;background:#0b0f15;border:1px solid var(--border);border-radius:14px;padding:15px}.outhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.outhead b{font-size:13px}.emoji{min-height:90px;max-height:260px;overflow:auto;word-break:break-all;font-size:25px;line-height:1.55;background:#080b10;border-radius:10px;padding:12px}.plain{white-space:pre-wrap;word-break:break-word;font-size:16px;line-height:1.5}
 .actions{display:flex;gap:8px;margin-top:10px}.small{border:1px solid var(--border);background:#202633;color:#fff;border-radius:9px;padding:9px 12px;font-weight:700;cursor:pointer}.status{min-height:22px;margin-top:12px;color:var(--muted);font-size:13px}.status.ok{color:var(--ok)}.status.bad{color:var(--bad)}
 .note{margin-top:14px;text-align:center;color:var(--muted);font-size:12px;line-height:1.5}.counter{text-align:right;color:var(--muted);font-size:11px;margin-top:5px}.option{display:flex;align-items:center;gap:10px;margin-top:14px;color:var(--text);font-size:13px;font-weight:700}.option input{width:auto}.filebox{margin-top:18px;padding:16px;border:1px solid var(--border);border-radius:14px;background:#0d1118}.filebox h3{margin:0 0 6px;font-size:15px}.filebox p{margin:0 0 12px;color:var(--muted);font-size:12px;line-height:1.45}.filemeta{margin-top:8px;color:var(--muted);font-size:12px}.download{display:inline-block;margin-top:10px;text-decoration:none}.secretimg{margin-top:18px;padding:16px;border:1px solid var(--border);border-radius:14px;background:#0d1118}.secretimg h3{margin:0 0 6px;font-size:15px}.secretimg p{margin:0 0 12px;color:var(--muted);font-size:12px;line-height:1.45}.previewimg{display:block;max-width:100%;max-height:320px;margin:12px auto 0;border-radius:10px;border:1px solid var(--border)}
@@ -45,6 +46,7 @@ label{display:block;font-size:13px;font-weight:800;margin:17px 0 8px}.field{posi
 .image-card h3{margin:0 0 5px;font-size:18px}
 .image-card p{color:var(--muted);font-size:12px;line-height:1.5;margin:0 0 14px}
 .image-preview{display:block;width:100%;max-height:330px;object-fit:contain;background:#07090d;border:1px solid var(--border);border-radius:12px;margin-top:12px}
+.image-preview.hidden{display:none!important}
 .result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .result-actions a,.result-actions button{flex:1 1 180px;text-align:center}
 .live-disabled{opacity:.55;cursor:not-allowed}
@@ -58,8 +60,10 @@ label{display:block;font-size:13px;font-weight:800;margin:17px 0 8px}.field{posi
 .source-name{margin-top:8px;color:var(--muted);font-size:12px;word-break:break-word}
 .mode-choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mode-card{display:block;margin:0;padding:13px;border:1px solid var(--border);border-radius:12px;background:#0b0f15;cursor:pointer}.mode-card:has(input:checked){border-color:var(--accent);background:#1b1530}.mode-card input{width:auto;margin-right:7px}.mode-card b{font-size:13px}.mode-card small{display:block;margin:7px 0 0 25px;color:var(--muted);line-height:1.35}.recommended{float:right;color:#c4b5fd;font-size:10px}.mode-help{margin-top:10px;padding:11px;border:1px solid var(--border);border-radius:10px;color:var(--muted);font-size:12px;line-height:1.5}.strength-row{display:flex;gap:8px}.strength-row label{flex:1;margin:0;padding:10px;border:1px solid var(--border);border-radius:10px;text-align:center;cursor:pointer}.strength-row label:has(input:checked){border-color:var(--accent);background:#1b1530}.strength-row input{width:auto}.capacity{margin-top:10px;padding:10px;border-radius:10px;background:#0b0f15;color:var(--muted);font-size:12px;line-height:1.5}.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px}.compare figure{margin:0}.compare figcaption{font-size:12px;font-weight:800;margin-bottom:6px}.diagnostics{margin-top:16px;padding:14px;border:1px dashed #59647a;border-radius:12px}.test-report{white-space:pre-wrap;max-height:320px;overflow:auto;font:12px/1.5 ui-monospace,monospace;background:#07090d;padding:10px;border-radius:9px;margin-top:10px}
 .placement-choice{display:flex;gap:7px;flex-wrap:wrap}.placement-choice label{flex:1 1 130px;margin:0;padding:10px;border:1px solid var(--border);border-radius:10px;cursor:pointer}.placement-choice label:has(input:checked){border-color:var(--accent);background:#1b1530}.placement-choice input{width:auto}.placement-panel{margin-top:10px;padding:12px;border:1px solid var(--border);border-radius:11px;background:#0b0f15}.mask-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}.mask-toolbar button,.mask-toolbar select{border:1px solid var(--border);background:#202633;color:#fff;border-radius:8px;padding:7px;font-weight:700}.mask-toolbar button.active{border-color:var(--accent);background:#38275e}.mask-canvas-wrap{position:relative;max-width:100%;overflow:hidden;border-radius:10px;background:#05070b}.mask-canvas-wrap canvas{display:block;width:100%;height:auto;touch-action:none}.map-legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-top:7px}.swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px}.border-controls{display:grid;grid-template-columns:1fr 1fr;gap:9px}.border-controls select,.border-controls input[type=color]{width:100%;height:42px;border:1px solid var(--border);background:#10141b;color:#fff;border-radius:9px;padding:7px}.dev-note{color:#fbbf24;font-size:11px;line-height:1.4;margin-top:8px}
+.live-panel{margin-top:14px;padding:14px;border:1px solid #3b4960;border-radius:12px;background:#0b1018}.live-url{display:block;margin:8px 0;color:#c4b5fd;word-break:break-all}.live-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;color:var(--muted);font-size:12px}.source-toggle{display:flex;gap:7px;margin:10px 0}.source-toggle label{flex:1;margin:0;padding:10px;border:1px solid var(--border);border-radius:10px;text-align:center;cursor:pointer}.source-toggle label:has(input:checked){border-color:var(--accent);background:#1b1530}.source-toggle input{width:auto}.danger{border-color:#7f1d1d!important;background:#35151b!important}.live-version{color:var(--ok);font-weight:800}
 @media(max-width:520px){.source-picker{grid-template-columns:1fr}}
 @media(max-width:620px){.mode-choice,.compare{grid-template-columns:1fr}.strength-row{flex-direction:column}}
+body.embedded-live .hero,body.embedded-live .tabs,body.embedded-live .modeintro,body.embedded-live #encode,body.embedded-live #decode .subnav,body.embedded-live .note{display:none!important}body.embedded-live .wrap{width:min(760px,calc(100% - 20px));margin:10px auto}body.embedded-live #decode{display:block!important;padding:12px}body.embedded-live #decode-image{display:block!important}
 </style>
 </head>
 <body>
@@ -90,11 +94,22 @@ label{display:block;font-size:13px;font-weight:800;margin:17px 0 8px}.field{posi
             <h3>🖼️ Create Secret Image</h3>
             <p>Write a message, choose your own picture and protect it with a passphrase. The message is encrypted locally, then hidden using robust JPG or lossless PNG steganography. <b>Works offline.</b></p>
 
-            <label for="stegMessage">SECRET MESSAGE</label>
+            <label>1. CHOOSE YOUR IMAGE</label>
+            <div class="source-picker">
+              <button id="choosePhotoBtn" type="button" class="source-btn">🖼️ Choose Photo</button>
+              <button id="chooseFileBtn" type="button" class="source-btn">📁 Choose From Files</button>
+            </div>
+            <input id="coverImage" class="hidden-file-input" type="file" accept="image/png,image/jpeg,image/webp">
+            <input id="coverImageFile" class="hidden-file-input" type="file" accept="image/*,.png,.jpg,.jpeg,.webp,application/octet-stream">
+            <div id="coverImageName" class="source-name">Select a photo to begin.</div>
+            <img id="coverPreview" class="image-preview hidden" alt="Selected image preview">
+            <div id="stegCapacity" class="capacity">Choose an image to calculate capacity.</div>
+
+            <label for="stegMessage">2. SECRET MESSAGE</label>
             <textarea id="stegMessage" placeholder="Type your secret message — no character limit..."></textarea>
             <div class="counter"><span id="stegCount">0</span> characters</div>
 
-            <label>SECRET IMAGE TYPE</label>
+            <label>3. SECRET IMAGE TYPE</label>
             <div class="mode-choice">
               <label class="mode-card"><span class="recommended">RECOMMENDED</span><input type="radio" name="stegMode" value="social" checked><b>Social / Robust</b><small>Designed for WhatsApp and messaging apps</small></label>
               <label class="mode-card"><input type="radio" name="stegMode" value="lossless"><b>Lossless / Invisible</b><small>Maximum visual fidelity — send original PNG as a file</small></label>
@@ -133,21 +148,10 @@ label{display:block;font-size:13px;font-weight:800;margin:17px 0 8px}.field{posi
               </div>
             </div>
 
-            <label>YOUR IMAGE</label>
-            <div class="source-picker">
-              <button id="choosePhotoBtn" type="button" class="source-btn">🖼️ Choose Photo</button>
-              <button id="chooseFileBtn" type="button" class="source-btn">📁 Choose From Files</button>
-            </div>
-            <input id="coverImage" class="hidden-file-input" type="file" accept="image/png,image/jpeg,image/webp">
-            <input id="coverImageFile" class="hidden-file-input" type="file" accept="image/*,.png,.jpg,.jpeg,.webp,application/octet-stream">
-            <div id="coverImageName" class="source-name">No image selected.</div>
-            <img id="coverPreview" class="image-preview hidden" alt="Selected image preview">
-            <div id="stegCapacity" class="capacity">Choose an image to calculate capacity.</div>
-
             <label for="stegSecret">SECRET / PASSPHRASE</label>
             <div class="field"><input id="stegSecret" class="secret" type="password" placeholder="Use a strong passphrase"><button class="show" data-show="stegSecret">Show</button></div>
 
-            <button id="makeSecretImage" class="primary">🔐 Generate Secret Image</button>
+            <button id="makeSecretImage" class="primary" disabled>🔐 Select an Image First</button>
             <div id="stegStatus" class="status"></div>
 
             <div id="secretImageResult" class="out hidden">
@@ -156,9 +160,16 @@ label{display:block;font-size:13px;font-weight:800;margin:17px 0 8px}.field{posi
               <div id="secretImageSize" class="filemeta"></div>
               <div class="result-actions">
                 <a id="stegDownload" class="small download hidden">⬇ Download Image</a>
-                <button id="liveImageBtn" class="small live-disabled" disabled title="Requires a server endpoint">🌐 Create Live Image URL</button>
+                <button id="liveImageBtn" class="small" disabled title="Checking Live Image service">🌐 Checking Live Image Service…</button>
+                <select id="liveExpiry" class="small" aria-label="Live Image expiry"><option value="never">Never expires</option><option value="1h">Expires in 1 hour</option><option value="24h">Expires in 24 hours</option><option value="7d">Expires in 7 days</option></select>
               </div>
-              <div class="filemeta">Live Image URL is prepared in the interface but needs a web server/API before it can publish a permanent URL.</div>
+              <div id="liveImageStatus" class="status"></div>
+              <div id="liveImageResult" class="live-panel hidden">
+                <div class="outhead"><b>✓ LIVE IMAGE ACTIVE</b><span id="liveVersion" class="live-version">Version 1</span></div>
+                <a id="livePublicUrl" class="live-url" target="_blank" rel="noopener"></a>
+                <div class="live-meta"><span>Status: <b id="liveStatusText">Active</b></span><span>Created: <b id="liveCreatedAt">—</b></span><span>Updated: <b id="liveUpdatedAt">—</b></span><span>Expiry: <b id="liveExpiresAt">Never</b></span></div>
+                <div class="result-actions"><button id="copyLiveUrl" class="small">Copy URL</button><a id="openLiveUrl" class="small" target="_blank" rel="noopener">Open</a><button id="updateLiveImage" class="small">Update Image</button><a id="downloadLiveImage" class="small">Download Current Image</a><button id="deleteLiveImage" class="small danger">Delete Live Image</button></div>
+              </div>
             </div>
             <div class="diagnostics">
               <b>Developer diagnostics</b>
@@ -225,18 +236,25 @@ label{display:block;font-size:13px;font-weight:800;margin:17px 0 8px}.field{posi
       <div class="image-workspace">
         <h3>🖼️ Decode Secret Image</h3>
         <p class="filemeta">Choose a Secret Image and enter the same passphrase. The mode is detected automatically; the original cover image is not required.</p>
-        <label>SECRET IMAGE</label>
-        <div class="source-picker">
-          <button id="decodeChoosePhotoBtn" type="button" class="source-btn">🖼️ Choose Photo</button>
-          <button id="decodeChooseFileBtn" type="button" class="source-btn">📁 Choose From Files</button>
+        <label>SOURCE</label>
+        <div class="source-toggle"><label><input type="radio" name="decodeSource" value="file" checked> Image / File</label><label><input type="radio" name="decodeSource" value="live"> Live Image URL</label></div>
+        <div id="decodeFileSource">
+          <label>SECRET IMAGE</label>
+          <div class="source-picker">
+            <button id="decodeChoosePhotoBtn" type="button" class="source-btn">🖼️ Choose Photo</button>
+            <button id="decodeChooseFileBtn" type="button" class="source-btn">📁 Choose From Files</button>
+          </div>
+          <input id="decodeImageInput" class="hidden-file-input" type="file" accept="image/png,image/jpeg">
+          <input id="decodeImageFile" class="hidden-file-input" type="file" accept="image/*,.png,.jpg,.jpeg,application/octet-stream">
+          <div id="decodeImageName" class="source-name">No secret image selected.</div>
+          <img id="decodeImagePreview" class="image-preview hidden" alt="Secret image preview">
         </div>
-        <input id="decodeImageInput" class="hidden-file-input" type="file" accept="image/png,image/jpeg">
-        <input id="decodeImageFile" class="hidden-file-input" type="file" accept="image/*,.png,.jpg,.jpeg,application/octet-stream">
-        <div id="decodeImageName" class="source-name">No secret image selected.</div>
-        <img id="decodeImagePreview" class="image-preview hidden" alt="Secret image preview">
+        <div id="decodeLiveSource" class="hidden"><label for="liveDecodeUrl">LIVE IMAGE URL</label><input id="liveDecodeUrl" type="url" placeholder="https://inkwhack.co.uk/stega/live/..."><div id="liveDecodeMeta" class="filemeta"></div></div>
         <label for="decodeImageSecret">SECRET / PASSPHRASE</label>
         <div class="field"><input id="decodeImageSecret" class="secret" type="password" placeholder="Enter the exact passphrase"><button class="show" data-show="decodeImageSecret">Show</button></div>
         <button id="decodeImageBtn" class="primary">🔓 Decode Image</button>
+        <button id="decodeLiveBtn" class="primary hidden">🔓 Decode Live Image</button>
+        <div id="offlineSnapshotBox" class="hidden"><a id="saveOfflineSnapshot" class="small download">Save for Offline</a><div class="filemeta">Offline copies are snapshots and will not receive future Live Image updates.</div></div>
         <div id="decodeImageStatus" class="status"></div>
         <div id="decodeDiagnostics" class="capacity hidden"></div>
         <div id="decodeImageOut" class="out hidden">
@@ -540,6 +558,10 @@ function previewPickedImage(file, previewId, nameId){
   const u=URL.createObjectURL(file);
   img.dataset.url=u; img.src=u; img.classList.remove("hidden");
   $(nameId).textContent=file.name || "Selected image";
+  if(previewId==="coverPreview"){
+    $("makeSecretImage").disabled=false;
+    $("makeSecretImage").textContent="🔐 Generate Secret Image";
+  }
 }
 
 $("choosePhotoBtn").addEventListener("click",()=>$("coverImage").click());
@@ -737,6 +759,31 @@ $("createTestImage").addEventListener("click",async()=>{status("stegStatus","Cre
 async function transformedBlob(blob,scale=1,quality=.94,crop=0){const src=await loadImageFile(blob),c=document.createElement("canvas"),cx=Math.round(src.c.width*crop),cy=Math.round(src.c.height*crop),sw=src.c.width-cx*2,sh=src.c.height-cy*2;c.width=Math.max(8,Math.round(sw*scale));c.height=Math.max(8,Math.round(sh*scale));c.getContext("2d").drawImage(src.c,cx,cy,sw,sh,0,0,c.width,c.height);return canvasBlob(c,"image/jpeg",quality);}
 async function makePlacementTestBlob(src,placementName,secret){const base=placementName==="border"?createBorderCanvas(src.c):src.c,normalized=normalizeSocial(base);let map;if(placementName==="auto")map=analyseSuitabilityMap(normalized.image);else if(placementName==="selected"){map=manualMask.slice();if(!map.some(v=>v!==0)){for(let y=1;y<5;y++)for(let x=2;x<6;x++)map[y*MAP_W+x]=3;for(let x=0;x<MAP_W;x++){map[x]=1;map[(MAP_H-1)*MAP_W+x]=1;}}}else map=coarseBorderMap(borderWidthCode());const packet=await encryptV3("Secret Image Test",secret,ROBUST.strong.id,PLACEMENT[placementName],borderWidthCode(),borderStyleCode(),map);await embedSocialV3(normalized.image,packet,secret,"strong");normalized.ctx.putImageData(normalized.image,0,0);return canvasBlob(normalized.c,"image/jpeg",.94);}
 $("runRobustnessTests").addEventListener("click",async()=>{const out=$("robustnessReport");out.classList.remove("hidden");out.textContent="Running Auto, Selected Area and Border simulations…";try{const src=await loadSelectedImage(),secret=$("stegSecret").value;if(!secret)throw new Error("Enter a secret/passphrase first.");const baseCases=[...[95,90,85,80].map(q=>({name:`JPEG ${q}`,q:q/100,s:1,c:0})),...[90,80,70].map(s=>({name:`Resize ${s}%`,q:.94,s:s/100,c:0})),{name:"JPEG 85 + resize 90%",q:.85,s:.9,c:0},{name:"JPEG 80 + resize 80%",q:.80,s:.8,c:0}],lines=["LOCAL PROCESSING SIMULATION (not actual WhatsApp)"];for(const placement of ["auto","selected","border"]){lines.push(`\n${placement.toUpperCase()}`);const generated=await makePlacementTestBlob(src,placement,secret),cases=placement==="border"?baseCases.concat([1,2,5].map(n=>({name:`Edge crop ${n}%`,q:.94,s:1,c:n/100}))):baseCases;for(const t of cases){try{const b=await transformedBlob(generated,t.s,t.q,t.c),r=await decodeAnyImage(b,secret);lines.push(`${t.name}: ${r.plain==="Secret Image Test"?"PASS":"FAIL"}`);}catch{lines.push(`${t.name}: FAIL`);}out.textContent=lines.join("\n");await new Promise(r=>setTimeout(r,0));}}}catch(e){out.textContent=`Test could not run: ${e.message||e}`;}});
+
+/* Live Image client. Only the already-encrypted generated image is uploaded.
+   The passphrase, plaintext and derived AES key never enter these requests. */
+const LIVE_API="https://inkwhack.co.uk/stega/api/live",LIVE_PUBLIC="https://inkwhack.co.uk/stega/live/";
+let activeLive=null,liveSnapshotUrl=null;
+async function checkLiveService(){const button=$("liveImageBtn");try{const response=await fetch(`${LIVE_API}/health`,{cache:"no-store"});if(!response.ok)throw new Error();button.disabled=false;button.textContent="🌐 Create Live Image";button.title="Upload the generated encrypted image";}catch{button.disabled=true;button.textContent="🌐 Live Image Service Offline";button.title="The Live Image backend has not been deployed or is currently unavailable.";}}
+if(typeof fetch==="function")checkLiveService();
+function liveOwnerKey(id){return "stega.live.owner."+id;}
+function saveLiveOwner(id,token){try{localStorage.setItem(liveOwnerKey(id),token);}catch{}}
+function getLiveOwner(id){try{return localStorage.getItem(liveOwnerKey(id));}catch{return null;}}
+function removeLiveOwner(id){try{localStorage.removeItem(liveOwnerKey(id));}catch{}}
+function liveDate(v){return v?new Date(v).toLocaleString():"Never";}
+function parseLiveId(value){const s=(value||"").trim();if(/^[A-Za-z0-9_-]{20,64}$/.test(s))return s;try{const u=new URL(s);const m=u.pathname.match(/\/stega\/(?:live|api\/live)\/([A-Za-z0-9_-]{20,64})(?:\/image)?\/?$/);return m?m[1]:null;}catch{return null;}}
+async function liveApiError(response){let message=`Live Image request failed (${response.status}).`;try{const body=await response.json();if(body.error)message=body.error;}catch{}throw new Error(message);}
+function showLiveManagement(data,ownerToken){const id=data.publicId,url=data.url||LIVE_PUBLIC+id;activeLive={...data,publicId:id,ownerToken:ownerToken||getLiveOwner(id)};$("livePublicUrl").href=url;$("livePublicUrl").textContent=url;$("openLiveUrl").href=url;$("downloadLiveImage").href=`${LIVE_API}/${id}/image`;$("downloadLiveImage").download=`live-${id}.${data.contentType==="image/png"?"png":"jpg"}`;$("liveVersion").textContent=`Version ${data.version}`;$("liveStatusText").textContent="Active";$("liveCreatedAt").textContent=liveDate(data.createdAt);$("liveUpdatedAt").textContent=liveDate(data.updatedAt);$("liveExpiresAt").textContent=data.expiresAt?liveDate(data.expiresAt):"Never";$("liveImageResult").classList.remove("hidden");}
+async function createLiveImage(){if(!lastGenerated?.blob)throw new Error("Generate a Secret Image first.");const form=new FormData();form.append("image",lastGenerated.blob,lastGenerated.mode==="lossless"?"secret-image.png":"secret-image.jpg");form.append("format",lastGenerated.mode==="lossless"?"SIMG-lossless":"SIMG-social");form.append("expiry",$("liveExpiry").value);const response=await fetch(LIVE_API,{method:"POST",body:form,cache:"no-store"});if(!response.ok)await liveApiError(response);const data=await response.json();saveLiveOwner(data.publicId,data.ownerToken);showLiveManagement(data,data.ownerToken);return data;}
+$("liveImageBtn").addEventListener("click",async()=>{status("liveImageStatus","Uploading the encrypted Secret Image…");try{await createLiveImage();status("liveImageStatus","Live Image created. The owner token is stored only in this browser.","ok");}catch(e){status("liveImageStatus",e.message||String(e),"bad");}});
+$("copyLiveUrl").addEventListener("click",async()=>{try{await navigator.clipboard.writeText($("livePublicUrl").href);status("liveImageStatus","Live Image URL copied.","ok");}catch{status("liveImageStatus","Copy was blocked. Select and copy the URL manually.","bad");}});
+$("updateLiveImage").addEventListener("click",async()=>{status("liveImageStatus","Updating Live Image with the newest generated encrypted image…");try{if(!activeLive)throw new Error("No Live Image is selected.");if(!lastGenerated?.blob)throw new Error("Generate the replacement Secret Image locally first.");const token=activeLive.ownerToken||getLiveOwner(activeLive.publicId);if(!token)throw new Error("Owner token is unavailable in this browser. This Live Image cannot be updated here.");const form=new FormData();form.append("image",lastGenerated.blob,lastGenerated.mode==="lossless"?"secret-image.png":"secret-image.jpg");form.append("format",lastGenerated.mode==="lossless"?"SIMG-lossless":"SIMG-social");const response=await fetch(`${LIVE_API}/${activeLive.publicId}`,{method:"PUT",headers:{Authorization:`Bearer ${token}`},body:form,cache:"no-store"});if(!response.ok)await liveApiError(response);showLiveManagement(await response.json(),token);status("liveImageStatus","Live Image updated. The public URL is unchanged.","ok");}catch(e){status("liveImageStatus",e.message||String(e),"bad");}});
+$("deleteLiveImage").addEventListener("click",async()=>{if(!activeLive||!confirm("Delete this Live Image permanently? The public URL will stop working."))return;status("liveImageStatus","Deleting Live Image…");try{const token=activeLive.ownerToken||getLiveOwner(activeLive.publicId);if(!token)throw new Error("Owner token is unavailable in this browser.");const response=await fetch(`${LIVE_API}/${activeLive.publicId}`,{method:"DELETE",headers:{Authorization:`Bearer ${token}`},cache:"no-store"});if(!response.ok)await liveApiError(response);removeLiveOwner(activeLive.publicId);activeLive=null;$("liveImageResult").classList.add("hidden");status("liveImageStatus","Live Image deleted. Its public URL is no longer available.","ok");}catch(e){status("liveImageStatus",e.message||String(e),"bad");}});
+
+document.querySelectorAll('input[name="decodeSource"]').forEach(input=>input.addEventListener("change",()=>{const live=input.checked&&input.value==="live"||document.querySelector('input[name="decodeSource"]:checked').value==="live";$("decodeFileSource").classList.toggle("hidden",live);$("decodeLiveSource").classList.toggle("hidden",!live);$("decodeImageBtn").classList.toggle("hidden",live);$("decodeLiveBtn").classList.toggle("hidden",!live);$("offlineSnapshotBox").classList.add("hidden");}));
+async function fetchLiveImage(id){const metaResponse=await fetch(`${LIVE_API}/${id}`,{cache:"no-store"});if(!metaResponse.ok)await liveApiError(metaResponse);const meta=await metaResponse.json(),imageResponse=await fetch(`${LIVE_API}/${id}/image`,{cache:"no-store"});if(!imageResponse.ok)await liveApiError(imageResponse);return {meta,blob:await imageResponse.blob()};}
+$("decodeLiveBtn").addEventListener("click",async()=>{$("decodeImageOut").classList.add("hidden");$("decodeDiagnostics").classList.add("hidden");$("offlineSnapshotBox").classList.add("hidden");status("decodeImageStatus","Downloading the current encrypted image…");try{const id=parseLiveId($("liveDecodeUrl").value);if(!id)throw new Error("Enter a valid InkWhack Live Image URL.");const {meta,blob}=await fetchLiveImage(id);$("liveDecodeMeta").textContent=`Version ${meta.version} • Updated ${liveDate(meta.updatedAt)}`;const result=await decodeAnyImage(blob,$("decodeImageSecret").value);$("decodeImagePlain").textContent=result.plain;$("decodeImageOut").classList.remove("hidden");status("decodeImageStatus",`Live Image decoded locally. Mode: ${result.mode}. Version ${meta.version}.`,"ok");if(liveSnapshotUrl)URL.revokeObjectURL(liveSnapshotUrl);liveSnapshotUrl=URL.createObjectURL(blob);$("saveOfflineSnapshot").href=liveSnapshotUrl;$("saveOfflineSnapshot").download=`live-${id}-v${meta.version}.${meta.contentType==="image/png"?"png":"jpg"}`;$("offlineSnapshotBox").classList.remove("hidden");const d=result.diagnostic||{};$("decodeDiagnostics").innerHTML=`Format detected: YES<br>Live version: ${meta.version}<br>Placement mode detected: ${result.mode}<br>Header recovered: YES<br>ECC damage: ${result.corrected||0}<br>Payload recovery: ${d.recovery===undefined?"100":d.recovery}%<br>AES authentication: PASSED<br>Decode PASS`;$("decodeDiagnostics").classList.remove("hidden");}catch(e){status("decodeImageStatus",e.message||String(e),"bad");$("decodeDiagnostics").innerHTML=`Live Image download or local decode failed.<br>Passphrase was not transmitted.<br>Decode FAIL`;$("decodeDiagnostics").classList.remove("hidden");}});
+if(typeof location!=="undefined"){const params=new URLSearchParams(location.search),liveId=params.get("live");if(liveId){document.body.classList.toggle("embedded-live",params.get("embed")==="1");document.querySelector('.tab[data-tab="decode"]').click();document.querySelector('[data-decode-view="image"]').click();const liveRadio=document.querySelector('input[name="decodeSource"][value="live"]');liveRadio.checked=true;liveRadio.dispatchEvent(new Event("change"));$("liveDecodeUrl").value=LIVE_PUBLIC+liveId;}}
 
 let decodeFileUrl=null;
 $("decodeFileBtn").addEventListener("click",async()=>{

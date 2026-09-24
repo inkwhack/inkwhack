@@ -1,7 +1,7 @@
-/* Offline core tests for secret_image_chat_v16_mobile_files.html.
+/* Offline core tests for index.html.
    Runs the actual application functions with a tiny DOM/canvas shim. */
 const fs=require("fs"),vm=require("vm"),assert=require("assert"),path=require("path"),os=require("os"),child=require("child_process");
-const html=fs.readFileSync("secret_image_chat_v16_mobile_files.html","utf8");
+const html=fs.readFileSync("index.html","utf8");
 const source=html.split("<script>")[1].split("</script>")[0];
 const declaredIds=new Set([...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
 const elements=new Map();
