@@ -4,9 +4,9 @@
 .hub-intro { padding: 60px 0 35px; }
 .hub-intro h1 { font-size: clamp(3.2rem, 7.6vw, 6.4rem); line-height: 1; }
 .hub-intro .lede { font-size: 1.1rem; margin: 24px 0 20px; }
-#collection, #downloads { scroll-margin-top: 24px; }
+#collection { scroll-margin-top: 24px; }
 .section-heading { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding: 25px 0 20px; }
-.section-heading h2, .downloads h2 { margin: 0; font-size: 1.6rem; }
+.section-heading h2 { margin: 0; font-size: 1.6rem; }
 .section-heading > span { color: var(--muted); font: .72rem monospace; letter-spacing: .1em; }
 .featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .project-card { text-decoration: none; border: 1px solid var(--line); border-radius: 18px; padding: 25px; display: flex; flex-direction: column; overflow: hidden; transition: border-color .18s, transform .18s; }
@@ -35,16 +35,35 @@
 .tool-card .tag { margin-bottom: 13px; font-size: .6rem; }
 .tool-card h3 { font-size: 1.12rem; letter-spacing: -.025em; }
 .tool-card p { font-size: .85rem; }
-.downloads { margin: 50px 0; padding: 30px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 30px; }
-.downloads .eyebrow { margin-bottom: 12px; }
-.downloads p:last-child { color: var(--muted); font-size: .9rem; margin-bottom: 0; }
-.download-link { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; background: var(--panel); }
-.download-link small { display: block; color: var(--muted); font: .7rem monospace; margin-top: 5px; }
-.download-link > span:last-child { color: var(--accent); font-size: 1.8rem; }
 .hub a:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 5px; }
 .skip-link { position: absolute; left: 20px; top: -100px; padding: 10px 20px; background: var(--ink); color: var(--page); z-index: 10; }
 .skip-link:focus { top: 10px; }
 @media (max-width: 950px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .hub nav { gap: 16px; } .hub nav a { font-size: .8rem; } .hub-intro { padding: 40px 0 25px; } .hub-intro .eyebrow { font-size: .65rem; } .featured-grid, .downloads { grid-template-columns: 1fr; } .tools-grid { gap: 12px; } .tool-card { padding: 17px; } .tool-card h3 { font-size: 1rem; } .tool-card .tag { letter-spacing: .03em; } .downloads { margin: 35px 0; } .game-art img { right: 5%; } }
+@media (max-width: 600px) { .hub nav { gap: 16px; } .hub nav a { font-size: .8rem; } .hub-intro { padding: 40px 0 25px; } .hub-intro .eyebrow { font-size: .65rem; } .featured-grid { grid-template-columns: 1fr; } .tools-grid { gap: 12px; } .tool-card { padding: 17px; } .tool-card h3 { font-size: 1rem; } .tool-card .tag { letter-spacing: .03em; } .game-art img { right: 5%; } }
 @media (max-width: 360px) { .tools-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .project-card { transition: none; } .project-card:hover { transform: none; } }
+
+.project-sidebar { position:fixed; inset:0 auto 0 0; width:260px; padding:34px 22px; display:flex; flex-direction:column; background:#151519; border-right:1px solid var(--line); overflow-y:auto; }
+.project-sidebar .brand { margin:0 10px 48px; }
+.project-menu summary { color:var(--muted); font-size:.72rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; padding:10px; }
+.hub .project-menu nav { display:flex; flex-direction:column; gap:5px; margin-top:14px; }
+.hub .project-menu nav a { display:flex; align-items:center; gap:12px; border-radius:9px; padding:12px 10px; color:#ccc9c3; font-size:.85rem; font-weight:600; }
+.hub .project-menu nav a span { flex:0 0 20px; color:var(--muted); font:.65rem monospace; }
+.hub .project-menu nav a:hover { background:#24242b; color:var(--ink); }
+.hub .project-menu nav a[aria-current] { color:var(--accent-soft); background:#ff6b3512; }
+.hub .project-menu nav a[aria-current] span { color:var(--accent); }
+.sidebar-privacy { margin-top:auto; padding:36px 10px 0; color:var(--muted); text-decoration:none; font-size:.8rem; }
+.hub-content { margin-left:260px; padding:0 35px; }
+.hub main,.hub footer { width:min(1180px,100%); }
+.hub footer { margin-top:48px; }
+@media (max-width:1100px) { .tools-grid { grid-template-columns:repeat(2,1fr); } .hub-content { padding:0 24px; } }
+@media (max-width:760px) {
+ .project-sidebar { position:relative; width:100%; padding:20px; border-right:0; border-bottom:1px solid var(--line); }
+ .project-sidebar .brand { margin:0 0 20px; }
+ .project-menu summary { padding:8px 0; }
+ .hub .project-menu nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px; }
+ .hub .project-menu nav a { font-size:.78rem; padding:10px 8px; gap:8px; }
+ .sidebar-privacy { display:none; }
+ .hub-content { margin-left:0; padding:0 20px; }
+ .hub-intro { padding-top:35px; }
+}
