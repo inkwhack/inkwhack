@@ -67,3 +67,7 @@
  .hub-content { margin-left:0; padding:0 20px; }
  .hub-intro { padding-top:35px; }
 }
+
+.forge-feature{flex-direction:row;align-items:center;justify-content:space-between;gap:24px;margin-bottom:20px;background:#211c18}.forge-feature h3{font-size:2rem;margin:10px 0}.forge-feature p{margin-bottom:0;max-width:600px}.forge-feature .card-action{margin-top:0;white-space:nowrap}@media(max-width:600px){.forge-feature{flex-direction:column;align-items:flex-start}}
+
+.forge-feature-preview{width:220px;height:auto;border-radius:8px;border:1px solid var(--line)}@media(max-width:1100px){.forge-feature-preview{width:150px}.forge-feature .card-action{white-space:normal}}@media(max-width:600px){.forge-feature-preview{width:100%}}
