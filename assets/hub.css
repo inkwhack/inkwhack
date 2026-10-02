@@ -1,0 +1,50 @@
+.hub { background: radial-gradient(ellipse at 85% 0, #ff6b350d, transparent 45%), var(--page); }
+.hub nav { display: flex; gap: 28px; }
+.hub nav a { text-decoration: none; }
+.hub-intro { padding: 60px 0 35px; }
+.hub-intro h1 { font-size: clamp(3.2rem, 7.6vw, 6.4rem); line-height: 1; }
+.hub-intro .lede { font-size: 1.1rem; margin: 24px 0 20px; }
+#collection, #downloads { scroll-margin-top: 24px; }
+.section-heading { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding: 25px 0 20px; }
+.section-heading h2, .downloads h2 { margin: 0; font-size: 1.6rem; }
+.section-heading > span { color: var(--muted); font: .72rem monospace; letter-spacing: .1em; }
+.featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.project-card { text-decoration: none; border: 1px solid var(--line); border-radius: 18px; padding: 25px; display: flex; flex-direction: column; overflow: hidden; transition: border-color .18s, transform .18s; }
+.project-card:hover { transform: translateY(-3px); border-color: var(--accent); color: var(--ink); }
+.card-top { display: flex; justify-content: space-between; align-items: center; }
+.card-top > span:last-child { font-size: 1.4rem; }
+.tag { font: 700 .67rem monospace; letter-spacing: .12em; color: var(--muted); }
+.featured { min-height: 365px; }
+.game-card { background: linear-gradient(130deg, #262d23, #161b17); }
+.game-card .tag { color: #bfd39e; }
+.game-art { position: relative; height: 155px; margin: 16px 0 12px; }
+.game-art img { position: absolute; right: 15%; top: -15px; height: 195px; width: 195px; object-fit: contain; image-rendering: pixelated; opacity: .85; }
+.game-art > span { position: relative; font-size: clamp(2.7rem, 5vw, 4.5rem); line-height: .85; font-weight: 950; letter-spacing: -.06em; color: #d9e4c4; }
+.stega-card { background: linear-gradient(130deg, #2b2140, #1b1826); }
+.stega-card .tag { color: #c1ace8; }
+.stega-art { height: 155px; display: flex; align-items: center; justify-content: center; gap: 25px; margin: 16px 0 12px; }
+.stega-art > span { color: #bd9aef; font-size: 9rem; line-height: 1; }
+.stega-art small { font: 700 .75rem/1.8 monospace; letter-spacing: .15em; color: #c1ace8; }
+.project-card h3 { margin: 0 0 10px; font-size: 1.55rem; }
+.project-card p { margin: 0 0 20px; color: #c3bfba; font-size: .92rem; max-width: 390px; }
+.card-action { font-size: .78rem; font-weight: 750; margin-top: auto; }
+.tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px; }
+.tool-card { background: #19191e; padding: 22px; }
+.tool-card .card-top { margin-bottom: 30px; }
+.tool-icon { color: var(--accent-soft); font: 750 1.4rem monospace; }
+.tool-card .tag { margin-bottom: 13px; font-size: .6rem; }
+.tool-card h3 { font-size: 1.12rem; letter-spacing: -.025em; }
+.tool-card p { font-size: .85rem; }
+.downloads { margin: 50px 0; padding: 30px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 30px; }
+.downloads .eyebrow { margin-bottom: 12px; }
+.downloads p:last-child { color: var(--muted); font-size: .9rem; margin-bottom: 0; }
+.download-link { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; background: var(--panel); }
+.download-link small { display: block; color: var(--muted); font: .7rem monospace; margin-top: 5px; }
+.download-link > span:last-child { color: var(--accent); font-size: 1.8rem; }
+.hub a:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 5px; }
+.skip-link { position: absolute; left: 20px; top: -100px; padding: 10px 20px; background: var(--ink); color: var(--page); z-index: 10; }
+.skip-link:focus { top: 10px; }
+@media (max-width: 950px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .hub nav { gap: 16px; } .hub nav a { font-size: .8rem; } .hub-intro { padding: 40px 0 25px; } .hub-intro .eyebrow { font-size: .65rem; } .featured-grid, .downloads { grid-template-columns: 1fr; } .tools-grid { gap: 12px; } .tool-card { padding: 17px; } .tool-card h3 { font-size: 1rem; } .tool-card .tag { letter-spacing: .03em; } .downloads { margin: 35px 0; } .game-art img { right: 5%; } }
+@media (max-width: 360px) { .tools-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .project-card { transition: none; } .project-card:hover { transform: none; } }

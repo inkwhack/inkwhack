@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Secret Emoji Chat</title>
+<title>Stega — A picture with a private message</title>
+<meta name="description" content="Choose a gallery picture, hide an encrypted message, and share a compression-resistant JPG with someone you trust.">
+
 <style>
 :root{color-scheme:dark;--bg:#0b0d12;--card:#141821;--card2:#10141b;--text:#f4f6fb;--muted:#99a3b3;--accent:#8b5cf6;--accent2:#6d28d9;--border:#293140;--ok:#34d399;--bad:#fb7185}
 *{box-sizing:border-box} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(circle at 50% -10%,#2a1b48 0,#11131a 34%,#080a0f 72%);color:var(--text);min-height:100vh}
@@ -66,13 +68,14 @@ label{display:block;font-size:13px;font-weight:800;margin:17px 0 8px}.field{posi
 @media(max-width:620px){.mode-choice,.compare{grid-template-columns:1fr}.strength-row{flex-direction:column}}
 body.embedded-live .hero,body.embedded-live .tabs,body.embedded-live .modeintro,body.embedded-live #encode,body.embedded-live #decode .subnav,body.embedded-live .note{display:none!important}body.embedded-live .wrap{width:min(760px,calc(100% - 20px));margin:10px auto}body.embedded-live #decode{display:block!important;padding:12px}body.embedded-live #decode-image{display:block!important}
 </style>
+<link rel="stylesheet" href="gallery.css">
 </head>
 <body>
 <div class="wrap">
-  <header class="hero"><div class="logo">🔐😎</div><h1>Secret Emoji Chat</h1><p>Hide an encrypted message inside an ordinary image.</p></header>
+  <header class="hero"><a class="home-link" href="../">← InkWhack collection</a><div class="logo" aria-hidden="true">✳</div><h1>Stega<span>A picture. A private message.</span></h1><p>Choose a picture, tuck a message inside, and share it with someone you trust.</p></header>
   <div class="tabs">
-    <button class="tab active" data-tab="encode">ENCODE</button>
-    <button class="tab" data-tab="decode">DECODE</button>
+    <button class="tab active" data-tab="encode">Create a message</button>
+    <button class="tab" data-tab="decode">Open a message</button>
   </div>
   <div class="modeintro">
     <span class="modepill">💬 30-character secret messages</span>
@@ -92,26 +95,23 @@ body.embedded-live .hero,body.embedded-live .tabs,body.embedded-live .modeintro,
       <div class="image-workspace">
         <div class="image-grid">
           <div class="image-card">
-            <h3>🖼️ Create Secret Image</h3>
-            <p>Write a message, choose your own picture and protect it with a passphrase. The message is encrypted locally, then hidden using robust JPG or lossless PNG steganography. <b>Works offline.</b></p>
+            <h3>Create your secret picture</h3>
+            <p>Pick one of 30 gallery pictures. Your message is encrypted in this browser and tucked into carefully chosen textured areas.</p>
 
-            <label>1. CHOOSE YOUR IMAGE</label>
-            <div class="source-picker">
-              <button id="choosePhotoBtn" type="button" class="source-btn">🖼️ Choose Photo</button>
-              <button id="chooseFileBtn" type="button" class="source-btn">📁 Choose From Files</button>
-            </div>
-            <input id="coverImage" class="hidden-file-input" type="file" accept="image/png,image/jpeg,image/webp">
-            <input id="coverImageFile" class="hidden-file-input" type="file" accept="image/*,.png,.jpg,.jpeg,.webp,application/octet-stream">
-            <div id="coverImageName" class="source-name">Select a photo to begin.</div>
+            <label id="galleryLabel">1. Choose a gallery picture</label>
+            <p class="gallery-help">Every picture has its own discreet hiding areas. Choose the one you like.</p>
+            <div id="pictureGallery" class="picture-gallery" role="group" aria-labelledby="galleryLabel"></div>
+            <div id="galleryStatus" class="status" role="status" aria-live="polite"></div>
+            <div id="coverImageName" class="source-name">Choose a gallery picture to begin.</div>
             <img id="coverPreview" class="image-preview hidden" alt="Selected image preview">
-            <div id="stegCapacity" class="capacity">Choose an image to calculate capacity.</div>
+            <div id="stegCapacity" class="capacity">Choose a picture to see how much it can hold.</div>
 
-            <label for="stegMessage">2. SECRET MESSAGE</label>
-            <textarea id="stegMessage" placeholder="Type your secret message — no character limit..."></textarea>
+            <label for="stegMessage">2. Write your message</label>
+            <textarea id="stegMessage" placeholder="What would you like to say?"></textarea>
             <div class="counter"><span id="stegCount">0</span> characters</div>
 
-            <label>3. SECRET IMAGE TYPE</label>
-            <div class="mode-choice">
+            <label class="legacy-settings">3. SECRET IMAGE TYPE</label>
+            <div class="mode-choice legacy-settings">
               <label class="mode-card"><span class="recommended">RECOMMENDED</span><input type="radio" name="stegMode" value="social" checked><b>Social / Robust</b><small>Designed for WhatsApp and messaging apps</small></label>
               <label class="mode-card"><input type="radio" name="stegMode" value="lossless"><b>Lossless / Invisible</b><small>Maximum visual fidelity — send original PNG as a file</small></label>
             </div>
@@ -164,11 +164,11 @@ body.embedded-live .hero,body.embedded-live .tabs,body.embedded-live .modeintro,
               </div>
             </div>
 
-            <label for="stegSecret">SECRET / PASSPHRASE</label>
-            <div class="field"><input id="stegSecret" class="secret" type="password" placeholder="Use a strong passphrase"><button class="show" data-show="stegSecret">Show</button></div>
+            <label for="stegSecret">3. Add a shared passphrase</label>
+            <div class="field"><input id="stegSecret" class="secret" type="password" placeholder="A long passphrase you both know"><button class="show" data-show="stegSecret">Show</button></div>
 
-            <button id="makeSecretImage" class="primary" disabled>🔐 Select an Image First</button>
-            <div id="stegStatus" class="status"></div>
+            <button id="makeSecretImage" class="primary" disabled>Choose a picture first</button>
+            <div id="stegStatus" class="status" role="status" aria-live="polite"></div>
 
             <div id="secretImageResult" class="out hidden">
               <div class="outhead"><b>SECRET IMAGE READY</b><span id="secretImageFormat">JPG</span></div>
@@ -187,7 +187,7 @@ body.embedded-live .hero,body.embedded-live .tabs,body.embedded-live .modeintro,
                 <div class="result-actions"><button id="copyLiveUrl" class="small">Copy URL</button><a id="openLiveUrl" class="small" target="_blank" rel="noopener">Open</a><button id="updateLiveImage" class="small">Update Image</button><a id="downloadLiveImage" class="small">Download Current Image</a><button id="deleteLiveImage" class="small danger">Delete Live Image</button></div>
               </div>
             </div>
-            <div class="diagnostics">
+            <div class="diagnostics legacy-settings">
               <b>Developer diagnostics</b>
               <div class="actions"><button id="createTestImage" class="small">Create WhatsApp Test Image</button><button id="runRobustnessTests" class="small">Run simulation tests</button></div>
               <div class="filemeta">Simulation approximates common JPEG and resize processing; it is not a claim of WhatsApp compatibility.</div>
@@ -196,10 +196,10 @@ body.embedded-live .hero,body.embedded-live .tabs,body.embedded-live .modeintro,
           </div>
 
           <div class="image-card">
-            <h3>🔓 How your friend opens it</h3>
-            <p>They import the generated Secret Image into Decode → Secret Image, enter the same passphrase, and the hidden message is recovered automatically. They do not need your original photo or mask.</p>
+            <h3>A little secret, three simple steps.</h3>
+            <ol class="how-steps"><li><strong>Choose &amp; write</strong><span>Pick a gallery picture and add your message.</span></li><li><strong>Save &amp; share</strong><span>Send the downloaded JPG as a photo. Keep the full picture without cropping.</span></li><li><strong>Open together</strong><span>Your friend chooses Open a message, imports the received picture, and enters your shared passphrase.</span></li></ol>
             <div class="security-note">
-              <b>Layers:</b> AES-256-GCM protects the message. Steganography hides the ciphertext. Error correction in Social mode protects against limited image-processing damage.
+              <b>Made for photo sharing.</b> Error correction helps the message survive JPEG compression and resizing. Heavy cropping, filters or extreme compression can still erase it.
             </div>
             <div class="security-note">
               <b>Security:</b> the message is protected with AES-256-GCM. Image hiding is camouflage, not a replacement for encryption. A strong passphrase is important.
@@ -311,6 +311,7 @@ body.embedded-live .hero,body.embedded-live .tabs,body.embedded-live .modeintro,
   <div class="note">Encryption and decryption happen locally in your browser. Your message and secret are not sent anywhere.<br>The emojis and symbols are an encoding of encrypted bytes — the security comes from the encryption and your secret.</div>
 </div>
 <script src="assets/carriers/library.js"></script>
+<script src="gallery-codec.js"></script>
 <script>
 "use strict";
 
@@ -566,6 +567,7 @@ async function loadImageFile(file){
 
 
 let selectedCoverFile=null;
+let selectedGalleryId=null;
 let selectedDecodeImageFile=null;
 
 function previewPickedImage(file, previewId, nameId){
@@ -577,23 +579,15 @@ function previewPickedImage(file, previewId, nameId){
   $(nameId).textContent=file.name || "Selected image";
   if(previewId==="coverPreview"){
     $("makeSecretImage").disabled=false;
-    $("makeSecretImage").textContent="🔐 Generate Secret Image";
+    $("makeSecretImage").textContent="Create secret picture";
   }
 }
 
-$("choosePhotoBtn").addEventListener("click",()=>$("coverImage").click());
-$("chooseFileBtn").addEventListener("click",()=>$("coverImageFile").click());
+
+
 $("decodeChoosePhotoBtn").addEventListener("click",()=>$("decodeImageInput").click());
 $("decodeChooseFileBtn").addEventListener("click",()=>$("decodeImageFile").click());
 
-$("coverImage").addEventListener("change",()=>{
-  selectedCoverFile=$("coverImage").files[0]||null;
-  if(selectedCoverFile) previewPickedImage(selectedCoverFile,"coverPreview","coverImageName");
-});
-$("coverImageFile").addEventListener("change",()=>{
-  selectedCoverFile=$("coverImageFile").files[0]||null;
-  if(selectedCoverFile) previewPickedImage(selectedCoverFile,"coverPreview","coverImageName");
-});
 $("decodeImageInput").addEventListener("change",()=>{
   selectedDecodeImageFile=$("decodeImageInput").files[0]||null;
   if(selectedDecodeImageFile) previewPickedImage(selectedDecodeImageFile,"decodeImagePreview","decodeImageName");
@@ -617,7 +611,7 @@ const V3_HEADER_LEN=59, V3_HEADER_REPEATS=1, MAP_W=8, MAP_H=6, MAP_CELLS=48;
 const PLACEMENT={auto:0,selected:1,border:2,carrier:3},PLACEMENT_NAMES=["Social Smart","Social Selected Areas","Social Border","Social Visual Carrier"];
 let stegUrl=null, lastGenerated=null, manualMask=new Uint8Array(MAP_CELLS),maskTool="protect",maskShape="brush",maskDrawing=false,maskStart=null;
 
-function selectedMode(){return document.querySelector('input[name="stegMode"]:checked').value;}
+function selectedMode(){return "social";}
 function selectedRobustness(){return document.querySelector('input[name="robustness"]:checked').value;}
 function u32be(n){return Uint8Array.from([(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255]);}
 function readU32(a,o){return ((a[o]*0x1000000)+(a[o+1]<<16)+(a[o+2]<<8)+a[o+3])>>>0;}
@@ -661,7 +655,7 @@ async function decryptV2(meta,cipher,secret){
 function rgbSlot(imageData,slot){return Math.floor(slot/3)*4+(slot%3);}
 function losslessCapacity(imageData){return Math.max(0,Math.floor((((imageData.data.length/4)*3)-V2_HEADER_LEN*8)/8)-16);}
 async function embedLossless(imageData,packet,secret){
-  const slots=(imageData.data.length/4)*3,headerBits=bytesToBits(packet.header);if(packet.cipher.length*8>slots-headerBits.length)throw new Error("This image cannot safely hold this message. Try a larger image.");
+  const slots=(imageData.data.length/4)*3,headerBits=bytesToBits(packet.header);if(packet.cipher.length*8>slots-headerBits.length)throw new Error("This picture cannot hold this message. Shorten your message.");
   headerBits.forEach((bit,i)=>{const p=rgbSlot(imageData,i);imageData.data[p]=(imageData.data[p]&254)|bit;});
   const n=slots-headerBits.length,seed=await placementSeed(secret,packet.header.slice(12,28),"SIMG2 lossless"),perm=affineParams(seed,n),bits=bytesToBits(packet.cipher);
   bits.forEach((bit,i)=>{const p=rgbSlot(imageData,headerBits.length+affineAt(i,n,perm));imageData.data[p]=(imageData.data[p]&254)|bit;});
@@ -699,7 +693,7 @@ function payloadCandidateBlocks(imageData,meta,headerBlocks){const bx=imageData.
 function analyseSuitabilityMap(imageData){const scores=[];for(let my=0;my<MAP_H;my++)for(let mx=0;mx<MAP_W;mx++){const x0=Math.floor(mx*imageData.width/MAP_W),x1=Math.floor((mx+1)*imageData.width/MAP_W),y0=Math.floor(my*imageData.height/MAP_H),y1=Math.floor((my+1)*imageData.height/MAP_H);let n=0,sum=0,sum2=0,edges=0,last=null;for(let y=y0;y<y1;y+=4)for(let x=x0;x<x1;x+=4){const p=(y*imageData.width+x)*4,Y=.299*imageData.data[p]+.587*imageData.data[p+1]+.114*imageData.data[p+2];sum+=Y;sum2+=Y*Y;n++;if(last!==null)edges+=Math.abs(Y-last);last=Y;}const mean=sum/Math.max(1,n),variance=Math.sqrt(Math.max(0,sum2/Math.max(1,n)-mean*mean)),edge=edges/Math.max(1,n),cx=(mx+.5)/MAP_W-.5,cy=(my+.5)/MAP_H-.5,outer=Math.min(1,Math.sqrt(cx*cx+cy*cy)*1.8),dark=(255-mean)/255; scores.push({i:my*MAP_W+mx,score:variance*1.4+edge*.45+outer*18+dark*8});}scores.sort((a,b)=>b.score-a.score);const map=new Uint8Array(MAP_CELLS);scores.forEach((s,rank)=>map[s.i]=rank<MAP_CELLS*.42?1:rank>MAP_CELLS*.76?2:0);return map;}
 function coarseBorderMap(widthCode){const map=new Uint8Array(MAP_CELLS),p=borderFraction(widthCode);for(let y=0;y<MAP_H;y++)for(let x=0;x<MAP_W;x++){const nx=(x+.5)/MAP_W,ny=(y+.5)/MAP_H;map[y*MAP_W+x]=(nx<p||ny<p||nx>1-p||ny>1-p)?1:3;}return map;}
 function v3Capacity(imageData,robustName,meta){const header=v3HeaderBlocks(imageData),eligible=payloadCandidateBlocks(imageData,meta,header),r=ROBUST[robustName].repeats;return Math.max(0,Math.floor(eligible.length/(12*r))-16);}
-async function embedSocialV3(imageData,packet,secret,robustName){const cfg=ROBUST[robustName],headerBlocks=v3HeaderBlocks(imageData),headerRepeated=repeatBits(hammingEncode(packet.header),V3_HEADER_REPEATS);for(let i=0;i<headerRepeated.length;i++)writeBlockBit(imageData,headerBlocks[i],headerRepeated[i],cfg.strength+10);const meta=parseV3Header(packet.header),eligible=payloadCandidateBlocks(imageData,meta,headerBlocks),payloadRepeated=repeatBits(hammingEncode(packet.cipher),cfg.repeats);if(payloadRepeated.length>eligible.length)throw new Error("Not enough usable image area for this message at the selected robustness level. Allow more encoding area, use a larger image, reduce robustness, or use Lossless mode.");const seed=await placementSeed(secret,meta.salt,"SIMG3 placed social"),perm=affineParams(seed,eligible.length);for(let i=0;i<payloadRepeated.length;i++)writeBlockBit(imageData,eligible[affineAt(i,eligible.length,perm)],payloadRepeated[i],cfg.strength);return {headerBlocks,eligible,used:payloadRepeated.length,meta};}
+async function embedSocialV3(imageData,packet,secret,robustName){const cfg=ROBUST[robustName],headerBlocks=v3HeaderBlocks(imageData),headerRepeated=repeatBits(hammingEncode(packet.header),V3_HEADER_REPEATS);for(let i=0;i<headerRepeated.length;i++)writeBlockBit(imageData,headerBlocks[i],headerRepeated[i],cfg.strength+10);const meta=parseV3Header(packet.header),eligible=payloadCandidateBlocks(imageData,meta,headerBlocks),payloadRepeated=repeatBits(hammingEncode(packet.cipher),cfg.repeats);if(payloadRepeated.length>eligible.length)throw new Error("Not enough usable image area for this message at the selected robustness level. Shorten your message to fit this picture.");const seed=await placementSeed(secret,meta.salt,"SIMG3 placed social"),perm=affineParams(seed,eligible.length);for(let i=0;i<payloadRepeated.length;i++)writeBlockBit(imageData,eligible[affineAt(i,eligible.length,perm)],payloadRepeated[i],cfg.strength);return {headerBlocks,eligible,used:payloadRepeated.length,meta};}
 async function extractSocialV3Candidate(sourceCanvas,secret){const {image}=normalizeSocial(sourceCanvas),headerBlocks=v3HeaderBlocks(image),raw=new Uint8Array(V3_HEADER_LEN*12*V3_HEADER_REPEATS);for(let i=0;i<raw.length;i++)raw[i]=readBlockBit(image,headerBlocks[i]);const headerMaj=majorityBits(raw,V3_HEADER_REPEATS),headerDecoded=hammingDecode(headerMaj.bits,V3_HEADER_LEN),meta=parseV3Header(headerDecoded.bytes);if(!meta)return null;const robustName=Object.keys(ROBUST).find(k=>ROBUST[k].id===meta.robustId),cfg=ROBUST[robustName];if(!cfg)throw new Error("Secret Image detected but its robustness level is unsupported.");const eligible=payloadCandidateBlocks(image,meta,headerBlocks),needed=meta.cipherLength*12*cfg.repeats;if(needed>eligible.length)throw new Error("Secret Image detected but too much embedded data was damaged.");const seed=await placementSeed(secret,meta.salt,"SIMG3 placed social"),perm=affineParams(seed,eligible.length),payloadRaw=new Uint8Array(needed);for(let i=0;i<needed;i++)payloadRaw[i]=readBlockBit(image,eligible[affineAt(i,eligible.length,perm)]);const payloadMaj=majorityBits(payloadRaw,cfg.repeats),payloadDecoded=hammingDecode(payloadMaj.bits,meta.cipherLength),plain=await decryptV2(meta,payloadDecoded.bytes,secret),damage=headerMaj.damaged+headerDecoded.corrected+payloadMaj.damaged+payloadDecoded.corrected,recovery=Math.max(0,100-Math.round(payloadMaj.damaged/Math.max(1,payloadMaj.bits.length)*100));return {plain,mode:PLACEMENT_NAMES[meta.placement],placement:meta.placement,corrected:damage,meta,diagnostic:{headerDamage:headerMaj.damaged,headerCorrected:headerDecoded.corrected,payloadDamage:payloadMaj.damaged,payloadCorrected:payloadDecoded.corrected,recovery}};}
 function paddedCropRecoveryCanvas(source,pct){const c=document.createElement("canvas"),px=Math.round(source.width*pct/(1-2*pct)),py=Math.round(source.height*pct/(1-2*pct));c.width=source.width+px*2;c.height=source.height+py*2;const ctx=c.getContext("2d");ctx.fillStyle="#202020";ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(source,px,py);return c;}
 async function extractSocialV3(sourceCanvas,secret){let lastError=null;for(const crop of [0,.01,.02,.05]){try{const candidate=crop?paddedCropRecoveryCanvas(sourceCanvas,crop):sourceCanvas,result=await extractSocialV3Candidate(candidate,secret);if(result){result.diagnostic.alignmentCrop=crop;return result;}}catch(e){lastError=e;}}if(lastError)throw lastError;return null;}
@@ -726,7 +720,7 @@ function legacyCapacityBytes(imageData){return Math.floor((imageData.data.length
 function extractLegacyBytes(imageData){const d=imageData.data;function readN(n,offsetBits=0){const out=new Uint8Array(n);let bit=0,usable=0;for(let i=0;i<d.length&&bit<n*8;i++){if((i&3)===3)continue;if(usable++<offsetBits)continue;out[bit>>>3]|=(d[i]&1)<<(7-(bit&7));bit++;}if(bit<n*8)throw new Error("Image does not contain a complete hidden message.");return out;}const l=readN(4),len=readU32(l,0),cap=legacyCapacityBytes(imageData)-4;if(!len||len>cap||len>1024*1024)return null;return readN(len,32);}
 async function decryptLegacy(payload,secret){if(!payload||payload.length<50||!LEGACY_STEG_MAGIC.every((v,i)=>payload[i]===v))return null;const salt=payload.slice(5,21),iv=payload.slice(21,33),key=await keyFromSecret(secret,salt);try{return td.decode(await crypto.subtle.decrypt({name:"AES-GCM",iv},key,payload.slice(33)));}catch{throw new Error("Incorrect passphrase, or the legacy image has been altered.");}}
 
-async function loadSelectedImage(){const f=selectedCoverFile||$("coverImage").files[0]||$("coverImageFile").files[0];if(!f)throw new Error("Choose a cover image first.");if(!/^image\/(png|jpeg|webp)$/.test(f.type))throw new Error("Choose a PNG, JPG or WebP image.");return {...await loadImageFile(f),file:f};}
+async function loadSelectedImage(){if(!selectedGalleryId||!selectedCoverFile)throw new Error("Choose a gallery picture first.");const file=selectedCoverFile,galleryId=selectedGalleryId;return {...await loadImageFile(file),file,galleryId};}
 function canvasBlob(c,type,quality){return new Promise((resolve,reject)=>c.toBlob(b=>b?resolve(b):reject(new Error("Could not create image.")),type,quality));}
 function setStegDownload(blob,mode){if(stegUrl)URL.revokeObjectURL(stegUrl);stegUrl=URL.createObjectURL(blob);const a=$("stegDownload");a.href=stegUrl;a.download=mode==="social"?"secret-image.jpg":"secret-image.png";a.textContent="⬇ Download "+a.download;a.classList.remove("hidden");}
 
@@ -763,7 +757,7 @@ $("autoPlaceCarrier").addEventListener("click",async()=>{try{const src=await loa
 $("carrierNormalPreview").addEventListener("click",()=>{carrierPreviewMode="normal";$("carrierNormalPreview").classList.add("active");$("carrierMapPreview").classList.remove("active");renderCarrierEditor();});$("carrierMapPreview").addEventListener("click",()=>{carrierPreviewMode="map";$("carrierMapPreview").classList.add("active");$("carrierNormalPreview").classList.remove("active");renderCarrierEditor();});
 function carrierPoint(e){const c=$("carrierEditor"),r=c.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width*100,y:(e.clientY-r.top)/r.height*100};}
 $("carrierEditor").addEventListener("pointerdown",e=>{const p=carrierPoint(e);let chosen=[...carrierInstances].reverse().find(i=>Math.abs(p.x-i.x)<=i.width/2&&Math.abs(p.y-i.y)<=i.height/2);if(chosen){selectedCarrierId=chosen.uid;const resize=Math.abs(p.x-(chosen.x+chosen.width/2))<6&&Math.abs(p.y-(chosen.y+chosen.height/2))<6;carrierDrag={p,original:{...chosen},resize};$("carrierEditor").setPointerCapture?.(e.pointerId);renderCarrierEditor();renderCarrierLibrary();}});$("carrierEditor").addEventListener("pointermove",e=>{if(!carrierDrag)return;const p=carrierPoint(e),i=carrierById(selectedCarrierId);if(carrierDrag.resize){i.width=Math.max(5,Math.min(100,carrierDrag.original.width+(p.x-carrierDrag.p.x)*2));i.height=Math.max(5,Math.min(100,carrierDrag.original.height+(p.y-carrierDrag.p.y)*2));}else{i.x=Math.max(0,Math.min(100,carrierDrag.original.x+p.x-carrierDrag.p.x));i.y=Math.max(0,Math.min(100,carrierDrag.original.y+p.y-carrierDrag.p.y));}renderCarrierEditor();});$("carrierEditor").addEventListener("pointerup",()=>{carrierDrag=null;refreshCapacity();});$("carrierEditor").addEventListener("pointercancel",()=>{carrierDrag=null;});
-function currentPlacementMeta(imageData){const placement=selectedPlacement(),width=borderWidthCode(),style=borderStyleCode(),map=placement==="auto"?analyseSuitabilityMap(imageData):placement==="selected"?manualMask.slice():placement==="carrier"?lastCarrierMap.slice():coarseBorderMap(width);return {placement:PLACEMENT[placement],borderWidth:width,borderStyle:style,map};}
+function currentPlacementMeta(imageData){if(selectedGalleryId)return {placement:PLACEMENT.selected,borderWidth:0,borderStyle:0,map:galleryRobustMap(selectedGalleryId)};const placement=selectedPlacement(),width=borderWidthCode(),style=borderStyleCode(),map=placement==="auto"?analyseSuitabilityMap(imageData):placement==="selected"?manualMask.slice():placement==="carrier"?lastCarrierMap.slice():coarseBorderMap(width);return {placement:PLACEMENT[placement],borderWidth:width,borderStyle:style,map};}
 function maskPercentages(map){let protectedCount=0,allowed=0;for(const v of map){if(v===3)protectedCount++;else allowed++;}return {allowed:Math.round(allowed/MAP_CELLS*100),protected:Math.round(protectedCount/MAP_CELLS*100)};}
 async function renderMaskEditor(){try{const src=await loadSelectedImage(),c=$("maskEditor"),ctx=c.getContext("2d");c.width=800;c.height=Math.max(240,Math.round(800*src.c.height/src.c.width));ctx.drawImage(src.c,0,0,c.width,c.height);for(let y=0;y<MAP_H;y++)for(let x=0;x<MAP_W;x++){const v=manualMask[y*MAP_W+x];if(v!==1&&v!==3)continue;ctx.fillStyle=v===3?"rgba(239,68,68,.43)":"rgba(34,197,94,.40)";ctx.fillRect(x*c.width/MAP_W,y*c.height/MAP_H,c.width/MAP_W+.5,c.height/MAP_H+.5);}const p=maskPercentages(manualMask);$("maskStats").textContent=`Encoding Area: ${p.allowed}% • Protected: ${p.protected}%`; }catch{}}
 function maskCellFromEvent(e){const c=$("maskEditor"),r=c.getBoundingClientRect();return {x:Math.max(0,Math.min(MAP_W-1,Math.floor((e.clientX-r.left)/r.width*MAP_W))),y:Math.max(0,Math.min(MAP_H-1,Math.floor((e.clientY-r.top)/r.height*MAP_H)))};}
@@ -782,26 +776,27 @@ async function socialBaseCanvas(source,placement=selectedPlacement()){return pla
 async function renderEncodingMap(){try{const src=await loadSelectedImage(),base=await socialBaseCanvas(src.c),normalized=normalizeSocial(base),meta=currentPlacementMeta(normalized.image),header=v3HeaderBlocks(normalized.image),eligible=payloadCandidateBlocks(normalized.image,meta,header),headerSet=new Set(header),eligibleSet=new Set(eligible),c=$("encodingMapCanvas"),ctx=c.getContext("2d"),scale=800/normalized.c.width;c.width=800;c.height=Math.round(normalized.c.height*scale);ctx.drawImage(normalized.c,0,0,c.width,c.height);const bx=normalized.image.width/8,by=normalized.image.height/8,bw=c.width/bx,bh=c.height/by;ctx.globalAlpha=.43;for(let i=0;i<bx*by;i++){ctx.fillStyle=headerSet.has(i)?"#eab308":eligibleSet.has(i)?"#22c55e":meta.placement!==PLACEMENT.border&&meta.map[mapCellForBlock(i,normalized.image)]===3?"#ef4444":"#6b7280";ctx.fillRect((i%bx)*bw,Math.floor(i/bx)*bh,bw+.5,bh+.5);}ctx.globalAlpha=1;}catch(e){status("stegStatus",e.message||String(e),"bad");}}
 $("showEncodingMap").addEventListener("click",async()=>{const panel=$("encodingMapPanel"),show=panel.classList.contains("hidden");panel.classList.toggle("hidden",!show);$("showEncodingMap").textContent=show?"Hide Encoding Map":"Show Encoding Map";if(show)await renderEncodingMap();});
 
-async function refreshCapacity(){try{const src=await loadSelectedImage(),mode=selectedMode(),rob=selectedRobustness(),bytes=te.encode($("stegMessage").value).length;let cap,area=100,protectedPct=0,ecc=0;if(mode==="lossless")cap=losslessCapacity(src.image);else{const base=await socialBaseCanvas(src.c),normalized=normalizeSocial(base),meta=currentPlacementMeta(normalized.image),header=v3HeaderBlocks(normalized.image),eligible=payloadCandidateBlocks(normalized.image,meta,header);cap=v3Capacity(normalized.image,rob,meta);area=Math.round(eligible.length/((normalized.image.width/8)*(normalized.image.height/8))*100);protectedPct=100-area;const cipher=bytes+16,r=ROBUST[rob].repeats;ecc=Math.ceil(cipher*12/8*r)-cipher;if(selectedPlacement()==="carrier")$("carrierStats").innerHTML+=`<br>Estimated capacity: <b>${(cap/1024).toFixed(2)} KB</b><br>Encrypted payload: <b>${((bytes+16)/1024).toFixed(2)} KB</b><br>ECC / redundancy: <b>${(ecc/1024).toFixed(2)} KB</b>`;}const ok=bytes<=cap,statusText=ok?(bytes<cap*.55?"✓ Excellent capacity":"✓ Sufficient capacity"):"✕ Not enough usable image area";$("stegCapacity").innerHTML=`Encoding Area: <b>${area}%</b> • Protected/unused: <b>${protectedPct}%</b><br>Available Robust Capacity: <b>${(cap/1024).toFixed(2)} KB</b><br>Encrypted Message: <b>${((bytes+16)/1024).toFixed(2)} KB</b><br>Encryption overhead: <b>16 bytes GCM tag + framing</b><br>ECC / Redundancy: <b>${(ecc/1024).toFixed(2)} KB</b><br>Status: <b style="color:${ok?'var(--ok)':'var(--bad)'}">${statusText}</b>`;}catch{$("stegCapacity").textContent="Choose an image to calculate capacity.";}}
+async function refreshCapacity(){try{const src=await loadSelectedImage(),normalized=normalizeSocial(src.c),meta={placement:PLACEMENT.selected,borderWidth:0,borderStyle:0,map:galleryRobustMap(src.galleryId)},cap=v3Capacity(normalized.image,selectedRobustness(),meta),used=te.encode($("stegMessage").value).length;$("stegCapacity").textContent=used<=cap?`${used} of ${cap} message bytes · Protected for photo sharing`:`Message is too long for reliable photo sharing. Keep it within ${cap} bytes.`;$("makeSecretImage").disabled=used>cap;}catch{$("stegCapacity").textContent="Choose a picture to see how much it can hold.";}}
+
 function updatePlacementUI(){const p=selectedPlacement();$("autoPlacementPanel").classList.toggle("hidden",p!=="auto");$("selectedPlacementPanel").classList.toggle("hidden",p!=="selected");$("carrierPlacementPanel").classList.toggle("hidden",p!=="carrier");$("borderPlacementPanel").classList.toggle("hidden",p!=="border");if(p==="selected")renderMaskEditor();if(p==="carrier")renderCarrierEditor();refreshCapacity();}
 function updateModeUI(){const social=selectedMode()==="social";$("robustnessBox").classList.toggle("hidden",!social);$("placementBox").classList.toggle("hidden",!social);$("modeHelp").innerHTML=social?"<b>SOCIAL / ROBUST</b><br>Designed to survive reasonable JPEG recompression, small quality changes and moderate resizing performed by messaging/social apps.":"<b>LOSSLESS / INVISIBLE</b><br>Uses extremely small pixel changes and is harder to visually distinguish, but the exact generated PNG must be preserved.<br><br><b>Send this image as a FILE/DOCUMENT.</b> Editing, resizing or image recompression may destroy the hidden message.";updatePlacementUI();}
 $("stegMessage").addEventListener("input",()=>{$("stegCount").textContent=Array.from($("stegMessage").value).length;refreshCapacity();});
 document.querySelectorAll('input[name="stegMode"],input[name="robustness"]').forEach(x=>x.addEventListener("change",updateModeUI));
 document.querySelectorAll('input[name="placement"]').forEach(x=>x.addEventListener("change",updatePlacementUI));
 [$("borderWidth"),$("borderStyle"),$("borderColor")].forEach(x=>x.addEventListener("change",()=>{$("borderColorLabel").classList.toggle("hidden",$("borderStyle").value!=="Custom Colour");refreshCapacity();}));
-[$("coverImage"),$("coverImageFile")].forEach(x=>x.addEventListener("change",()=>setTimeout(()=>{refreshCapacity();if(selectedPlacement()==="carrier")renderCarrierEditor();},0)));
+
 
 async function generateSecretImage(message=$("stegMessage").value){
   const src=await loadSelectedImage(),secret=$("stegSecret").value,mode=selectedMode(),rob=selectedRobustness(),robId=ROBUST[rob].id;
   const originalUrl=URL.createObjectURL(src.file);if($("originalComparePreview").dataset.url)URL.revokeObjectURL($("originalComparePreview").dataset.url);$("originalComparePreview").dataset.url=originalUrl;$("originalComparePreview").src=originalUrl;
   let blob,c,w,h,capacity;
-  if(mode==="lossless"){const packet=await encryptV2(message,secret,MODE_LOSSLESS,0);capacity=losslessCapacity(src.image);if(te.encode(message).length>capacity)throw new Error("This image cannot safely hold this message. Try a larger image.");await embedLossless(src.image,packet,secret);src.ctx.putImageData(src.image,0,0);c=src.c;blob=await canvasBlob(c,"image/png");w=c.width;h=c.height;}
-  else{const base=await socialBaseCanvas(src.c),normalized=normalizeSocial(base),meta=currentPlacementMeta(normalized.image),packet=meta.placement===PLACEMENT.carrier?await encryptV4Carrier(message,secret,robId,meta.map):await encryptV3(message,secret,robId,meta.placement,meta.borderWidth,meta.borderStyle,meta.map);capacity=v3Capacity(normalized.image,rob,meta);if(te.encode(message).length>capacity)throw new Error(`Not enough usable image area for this message at ${rob[0].toUpperCase()+rob.slice(1)} robustness. Allow more encoding area, use a larger image, reduce robustness, or use Lossless mode.`);await embedSocialV3(normalized.image,packet,secret,rob);normalized.ctx.putImageData(normalized.image,0,0);c=normalized.c;blob=await canvasBlob(c,"image/jpeg",0.94);w=c.width;h=c.height;}
-  setStegDownload(blob,mode);const preview=$("secretImagePreview");if(preview.dataset.url)URL.revokeObjectURL(preview.dataset.url);preview.dataset.url=URL.createObjectURL(blob);preview.src=preview.dataset.url;$("secretImageFormat").textContent=mode==="social"?"JPG":"PNG";const placement=mode==="social"?PLACEMENT_NAMES[PLACEMENT[selectedPlacement()]]:"N/A";$("secretImageSize").textContent=`Original: ${(src.file.size/1024).toFixed(1)} KB • Secret: ${(blob.size/1024).toFixed(1)} KB • ${w} × ${h}px • Mode: ${mode==="social"?placement:"Lossless / Invisible"} • Robustness: ${mode==="social"?rob:"N/A"} • Estimated capacity: ${(capacity/1024).toFixed(2)} KB`;$("secretImageResult").classList.remove("hidden");lastGenerated={blob,mode,secret,message,robustness:rob,placement:selectedPlacement()};return lastGenerated;
+  if(mode==="lossless"){const packet=await encryptV2(message,secret,MODE_LOSSLESS,0);capacity=galleryCapacity(src.image,src.galleryId);if(te.encode(message).length>capacity)throw new Error("This picture cannot hold this message. Shorten your message.");await embedGallery(src.image,packet,secret,src.galleryId);src.ctx.putImageData(src.image,0,0);c=src.c;blob=await canvasBlob(c,"image/png");w=c.width;h=c.height;}
+  else{const base=await socialBaseCanvas(src.c),normalized=normalizeSocial(base),meta={placement:PLACEMENT.selected,borderWidth:0,borderStyle:0,map:galleryRobustMap(src.galleryId)},packet=meta.placement===PLACEMENT.carrier?await encryptV4Carrier(message,secret,robId,meta.map):await encryptV3(message,secret,robId,meta.placement,meta.borderWidth,meta.borderStyle,meta.map);capacity=v3Capacity(normalized.image,rob,meta);if(te.encode(message).length>capacity)throw new Error(`Not enough usable image area for this message at ${rob[0].toUpperCase()+rob.slice(1)} robustness. Shorten your message to fit this picture.`);await embedSocialV3(normalized.image,packet,secret,rob);normalized.ctx.putImageData(normalized.image,0,0);c=normalized.c;blob=await canvasBlob(c,"image/jpeg",0.94);w=c.width;h=c.height;}
+  setStegDownload(blob,mode);const preview=$("secretImagePreview");if(preview.dataset.url)URL.revokeObjectURL(preview.dataset.url);preview.dataset.url=URL.createObjectURL(blob);preview.src=preview.dataset.url;$("secretImageFormat").textContent=mode==="social"?"JPG":"PNG";const placement="Gallery texture regions";$("secretImageSize").textContent=`Original: ${(src.file.size/1024).toFixed(1)} KB • Secret: ${(blob.size/1024).toFixed(1)} KB • ${w} × ${h}px • Mode: ${mode==="social"?placement:"Gallery / Discreet PNG"} • Robustness: ${mode==="social"?rob:"N/A"} • Estimated capacity: ${(capacity/1024).toFixed(2)} KB`;$("secretImageResult").classList.remove("hidden");lastGenerated={blob,mode,secret,message,robustness:rob,placement:"selected"};return lastGenerated;
 }
-$("makeSecretImage").addEventListener("click",async()=>{$("stegDownload").classList.add("hidden");$("secretImageResult").classList.add("hidden");status("stegStatus","Encrypting and hiding the message…");try{await generateSecretImage();status("stegStatus",selectedMode()==="social"?"Social Secret Image created. Simulation testing is recommended before relying on a messaging service.":"Lossless Secret Image created. Send it as a FILE/DOCUMENT and do not edit it.","ok");}catch(e){status("stegStatus",e.message||String(e),"bad");}});
+$("makeSecretImage").addEventListener("click",async()=>{$("stegDownload").classList.add("hidden");$("secretImageResult").classList.add("hidden");status("stegStatus","Encrypting and hiding the message…");try{await generateSecretImage();status("stegStatus",selectedMode()==="social"?"Your secret JPG is ready for photo sharing. Keep the whole picture; heavy edits can still damage the message.":"Your secret picture is ready. Send the original PNG as a file or document.","ok");}catch(e){status("stegStatus",e.message||String(e),"bad");}});
 
-async function decodeAnyImage(file,secret){const loaded=await loadImageFile(file);const placed=await extractSocialV3(loaded.c,secret);if(placed)return placed;const social=await extractSocial(loaded.c,secret);if(social)return social;const lossless=await extractLossless(loaded.image,secret);if(lossless)return lossless;const legacy=await decryptLegacy(extractLegacyBytes(loaded.image),secret);if(legacy!==null)return {plain:legacy,mode:"Legacy Secret Image",corrected:0};throw new Error("No Secret Image message detected. The header may be absent or damaged beyond recovery.");}
+async function decodeAnyImage(file,secret){const loaded=await loadImageFile(file);const gallery=await extractGallery(loaded.image,secret);if(gallery)return gallery;const placed=await extractSocialV3(loaded.c,secret);if(placed)return placed;const social=await extractSocial(loaded.c,secret);if(social)return social;const lossless=await extractLossless(loaded.image,secret);if(lossless)return lossless;const legacy=await decryptLegacy(extractLegacyBytes(loaded.image),secret);if(legacy!==null)return {plain:legacy,mode:"Legacy Secret Image",corrected:0};throw new Error("No Secret Image message detected. The header may be absent or damaged beyond recovery.");}
 $("decodeImageBtn").addEventListener("click",async()=>{$("decodeImageOut").classList.add("hidden");$("decodeDiagnostics").classList.add("hidden");status("decodeImageStatus","Scanning image and detecting mode…");try{const f=selectedDecodeImageFile||$("decodeImageInput").files[0]||$("decodeImageFile").files[0];if(!f)throw new Error("Choose a Secret Image first.");const result=await decodeAnyImage(f,$("decodeImageSecret").value);$("decodeImagePlain").textContent=result.plain;$("decodeImageOut").classList.remove("hidden");const recovered=result.corrected?" Message recovered using error correction.":"";status("decodeImageStatus",`Secret Image detected. Mode: ${result.mode}.${recovered}`,"ok");if(result.mode.startsWith("Social")){const d=result.diagnostic||{},version=result.meta?.version||2;$("decodeDiagnostics").innerHTML=`Format detected: SIMG v${version}${version===4?" Visual Carrier":""}<br>Placement mode detected: ${result.mode}<br>Synchronisation detected: YES<br>Carrier regions recovered: ${version===4?"YES (embedded suitability map)":"N/A"}<br>Header recovered: YES<br>ECC damage: ${result.corrected} corrected/disagreed units<br>Payload recovery: ${d.recovery===undefined?"100":d.recovery}%<br>AES authentication: PASSED<br>Decode PASS`;$("decodeDiagnostics").classList.remove("hidden");}}catch(e){status("decodeImageStatus",e.message||String(e),"bad");$("decodeDiagnostics").innerHTML=`Format detected: uncertain<br>Placement mode detected: unavailable<br>Header recovered: failed or not present<br>Payload recovery: 0%<br>AES authentication: not passed<br>Decode FAIL`;$("decodeDiagnostics").classList.remove("hidden");}});
 
 $("createTestImage").addEventListener("click",async()=>{status("stegStatus","Creating diagnostic test image…");try{document.querySelector('input[name="stegMode"][value="social"]').checked=true;if(selectedPlacement()==="carrier"&&!carrierInstances.length){const starter=carrierCatalog.find(x=>x.id==="spider-web")||carrierCatalog[0];await addCarrier(starter);}updateModeUI();$("stegMessage").value="Secret Image Test";$("stegCount").textContent="17";await generateSecretImage("Secret Image Test");status("stegStatus",`${selectedPlacement()==="carrier"?"WhatsApp Visual Carrier Test":"WhatsApp Test Image"} created. Send it as a normal photo, download it, then import it under Decode for a placement/ECC/AES diagnostic report.`,"ok");}catch(e){status("stegStatus",e.message||String(e),"bad");}});
@@ -930,5 +925,7 @@ if(!window.crypto || !window.crypto.subtle){
   decryptBtn.disabled=true;
 }
 </script>
+<script src="assets/gallery/catalog.js"></script>
+<script src="gallery.js"></script>
 </body>
 </html>

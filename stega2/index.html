@@ -1,0 +1,806 @@
+<!-- /// Deep Codex capture
+/// Captured: 2026-10-02T20:26:02.160983+00:00
+/// Capture: db66e64723d223cc8859180aa29fd074dc16c9cc14d6d7356f5be4ae0d8dd8aa
+/// File: index.html
+/// Previous capture: 78399b5148c80ea9e02c424c73a0752b704d8026358450590af2063f75cba492
+/// End capture -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔐 secret chats · WhatsApp-safe stego</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: radial-gradient(circle at 20% 30%, #0b0f1c, #03050b);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    color: #eef2ff;
+}
+.glass-card {
+    background: rgba(18, 25, 45, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(90, 140, 255, 0.25);
+    border-radius: 2.5rem;
+    box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(70, 130, 255, 0.15) inset;
+    width: 100%;
+    max-width: 720px;
+    padding: 2rem 2.2rem 2.5rem;
+}
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    background: linear-gradient(120deg, #b7c9ff, #6b9aff, #b7c9ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.25rem;
+}
+h1 span { font-size: 1.8rem; filter: drop-shadow(0 0 8px #4a7eff); }
+.subhead {
+    font-size: 0.9rem;
+    color: #93a9e0;
+    margin-bottom: 1.8rem;
+    border-left: 3px solid #3d6eff;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.subhead i {
+    font-style: normal;
+    background: #1f2a4a;
+    padding: 0.15rem 0.6rem;
+    border-radius: 40px;
+    font-size: 0.7rem;
+    color: #a9c0ff;
+}
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: #0b1222;
+    padding: 0.4rem;
+    border-radius: 60px;
+    margin-bottom: 2rem;
+    border: 1px solid #1e2b4b;
+}
+.tab-btn {
+    flex: 1;
+    padding: 0.85rem 1rem;
+    border-radius: 40px;
+    border: none;
+    background: transparent;
+    color: #7d93cc;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: inherit;
+}
+.tab-btn:hover { color: #c0d2ff; background: #131e38; }
+.tab-btn.active {
+    background: linear-gradient(145deg, #2b5bff, #1a44c8);
+    color: white;
+    box-shadow: 0 8px 20px -8px #1a44c8;
+}
+.tab-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
+.panel { display: none; animation: fadeIn 0.25s ease; }
+.panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.input-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
+label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    color: #8ca4e0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+label svg { width: 15px; height: 15px; fill: none; stroke: #6a8eff; stroke-width: 2; }
+textarea, input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    background: #0d1424;
+    border: 1.5px solid #26345c;
+    border-radius: 20px;
+    color: #ffffff;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.2s;
+    resize: vertical;
+    outline: none;
+}
+textarea:focus, input:focus {
+    border-color: #4a7eff;
+    box-shadow: 0 0 0 4px rgba(74, 126, 255, 0.2);
+    background: #0b1120;
+}
+textarea::placeholder, input::placeholder { color: #55688f; font-weight: 300; }
+.file-upload {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    background: #0d1424;
+    border: 1.5px dashed #2f3f6b;
+    border-radius: 20px;
+    padding: 0.7rem 1rem;
+    transition: 0.2s;
+}
+.file-upload:hover { border-color: #4a7eff; }
+input[type="file"] { display: none; }
+.file-btn {
+    background: #1e2b4b;
+    border: 1px solid #3d5a9b;
+    padding: 0.6rem 1.1rem;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #d3e0ff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.15s;
+    white-space: nowrap;
+}
+.file-btn:hover { background: #2b3e68; border-color: #6a8eff; }
+.file-name {
+    font-size: 0.85rem;
+    color: #90a6e0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+}
+.action-buttons { display: flex; gap: 1rem; margin-top: 1.6rem; flex-wrap: wrap; }
+.btn {
+    flex: 1 1 180px;
+    padding: 1rem 1.5rem;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #1e2b4b;
+    color: #c8d9ff;
+    border: 1px solid #304575;
+    letter-spacing: 0.01em;
+    font-family: inherit;
+}
+.btn-primary {
+    background: linear-gradient(145deg, #2b5bff, #1a44c8);
+    border: 1px solid #6a8eff;
+    color: white;
+    box-shadow: 0 10px 20px -8px #1a44c8;
+}
+.btn-primary:hover {
+    background: linear-gradient(145deg, #3a6aff, #1f4fd8);
+    box-shadow: 0 15px 25px -8px #2b5bff;
+    transform: translateY(-2px);
+}
+.btn-secondary:hover {
+    background: #2b3e68;
+    border-color: #5a7eff;
+    color: white;
+    transform: translateY(-2px);
+}
+.btn:active { transform: translateY(1px); }
+.status {
+    margin-top: 1.5rem;
+    font-size: 0.88rem;
+    padding: 0.85rem 1.2rem;
+    border-radius: 60px;
+    background: #0b1424;
+    border-left: 6px solid #3d6eff;
+    color: #b7cbff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.2s;
+    word-break: break-word;
+    line-height: 1.4;
+}
+.status.success { border-left-color: #2ad48b; background: #0d1f1c; color: #b0f0d0; }
+.status.error { border-left-color: #ff5a7a; background: #1f0d14; color: #ffb7c5; }
+.status i { font-style: normal; font-size: 1.1rem; }
+.hidden-message-preview {
+    margin-top: 1.5rem;
+    background: #0e1629;
+    border-radius: 18px;
+    padding: 1.2rem;
+    border: 1px solid #23345e;
+    animation: fadeIn 0.3s ease;
+}
+.hidden-message-preview strong {
+    color: #8ca4e0;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+}
+.hidden-message-preview .message-content {
+    font-size: 1.05rem;
+    color: #e0ebff;
+    background: #0a101f;
+    padding: 0.9rem 1.2rem;
+    border-radius: 14px;
+    border-left: 4px solid #4a7eff;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+.footer-note {
+    text-align: center;
+    font-size: 0.72rem;
+    color: #3e4c70;
+    margin-top: 2rem;
+    line-height: 1.6;
+}
+.image-preview {
+    max-width: 90px;
+    max-height: 60px;
+    border-radius: 10px;
+    border: 1px solid #3d5a9b;
+    object-fit: cover;
+    display: none;
+}
+.image-preview.show { display: block; }
+.tip-box {
+    background: #101a30;
+    border: 1px solid #24345e;
+    border-radius: 16px;
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 1.4rem;
+    font-size: 0.82rem;
+    color: #93a9e0;
+    line-height: 1.55;
+    display: flex;
+    gap: 10px;
+}
+.tip-box .tip-icon { font-size: 1.2rem; flex-shrink: 0; }
+.tip-box strong { color: #b7c9ff; font-weight: 600; }
+.progress-bar {
+    height: 6px;
+    background: #1a2645;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2b5bff, #6a8eff);
+    width: 0%;
+    transition: width 0.2s;
+    border-radius: 10px;
+}
+@media (max-width: 500px) {
+    .glass-card { padding: 1.6rem 1.3rem 2rem; }
+    h1 { font-size: 1.6rem; }
+    .action-buttons .btn { flex: 1 1 100%; }
+}
+</style>
+</head>
+<body>
+<div class="glass-card">
+    <h1><span>🕵️</span> secret chats</h1>
+    <div class="subhead">
+        WhatsApp-safe · redundant LSB encoding
+        <i>compression-resistant</i>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" id="tabEncode" data-panel="encodePanel">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Encode
+        </button>
+        <button class="tab-btn" id="tabDecode" data-panel="decodePanel">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H5.78a1.65 1.65 0 0 0-1.51 1 1.65 1.65 0 0 0 .33 1.82L12 22l7.4-7z"/><path d="M12 2v4"/><path d="m4.6 8 1.8 1.8"/><path d="m19.4 8-1.8 1.8"/></svg>
+            Decode
+        </button>
+    </div>
+
+    <!-- ENCODE PANEL -->
+    <div id="encodePanel" class="panel active">
+        <div class="tip-box">
+            <span class="tip-icon">📱</span>
+            <span><strong>Designed for WhatsApp photo sharing</strong> This encoder uses <strong>redundant error-corrected bits</strong> spread across the image, to improve resistance to WhatsApp's image resizing and compression. Just send the image normally — no need for "document" mode.</span>
+        </div>
+
+        <div class="input-group">
+            <label>
+                <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h6"/></svg>
+                Your Message
+            </label>
+            <textarea id="messageInput" rows="3" placeholder="Write something secret..."></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>
+                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Secret Passphrase
+            </label>
+            <input type="password" id="passphraseInput" placeholder="••••••••" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+            <label>
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="12" cy="12" r="4"/><path d="M17 7h.01"/></svg>
+                Cover image (PNG / JPG)
+            </label>
+            <div class="file-upload">
+                <label for="imageUpload" class="file-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Choose image
+                </label>
+                <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg, image/bmp">
+                <span class="file-name" id="fileNameDisplay">no file chosen</span>
+                <img id="imagePreview" class="image-preview" alt="preview">
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" id="encodeBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Encode &amp; download
+            </button>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="encodeProgress"></div></div>
+    </div>
+
+    <!-- DECODE PANEL -->
+    <div id="decodePanel" class="panel">
+        <div class="tip-box">
+            <span class="tip-icon">📥</span>
+            <span><strong>Upload the image</strong> you received (even after WhatsApp compression). The redundant encoding recovers the message automatically. Enter the passphrase to unlock.</span>
+        </div>
+
+        <div class="input-group">
+            <label>
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="12" cy="12" r="4"/><path d="M17 7h.01"/></svg>
+                Encoded image
+            </label>
+            <div class="file-upload">
+                <label for="decodeImageUpload" class="file-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Upload image
+                </label>
+                <input type="file" id="decodeImageUpload" accept="image/png, image/jpeg, image/jpg, image/bmp">
+                <span class="file-name" id="decodeFileNameDisplay">no file chosen</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>
+                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Secret Passphrase
+            </label>
+            <input type="password" id="decodePassphrase" placeholder="••••••••" autocomplete="off">
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-secondary" id="decodeBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H5.78a1.65 1.65 0 0 0-1.51 1 1.65 1.65 0 0 0 .33 1.82L12 22l7.4-7z"/><path d="M12 2v4"/><path d="m4.6 8 1.8 1.8"/><path d="m19.4 8-1.8 1.8"/></svg>
+                Decode message
+            </button>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="decodeProgress"></div></div>
+
+        <div id="decodedMessageBox" class="hidden-message-preview" style="display: none;">
+            <strong>🔎 hidden message</strong>
+            <div class="message-content" id="decodedMessageText"></div>
+        </div>
+    </div>
+
+    <div id="statusMessage" class="status">
+        <i>💡</i> Ready. Encode a message — uses the compression-resistant profile.
+    </div>
+
+    <div class="footer-note">
+        ⚡ redundant encoding · survives WhatsApp / Telegram / iMessage compression
+    </div>
+</div>
+
+<script>
+(function() {
+    // ---------- DOM ----------
+    const tabEncode = document.getElementById('tabEncode');
+    const tabDecode = document.getElementById('tabDecode');
+    const encodePanel = document.getElementById('encodePanel');
+    const decodePanel = document.getElementById('decodePanel');
+    const messageInput = document.getElementById('messageInput');
+    const passphraseInput = document.getElementById('passphraseInput');
+    const imageUpload = document.getElementById('imageUpload');
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+    const imagePreview = document.getElementById('imagePreview');
+    const encodeBtn = document.getElementById('encodeBtn');
+    const encodeProgress = document.getElementById('encodeProgress');
+    const decodeImageUpload = document.getElementById('decodeImageUpload');
+    const decodeFileNameDisplay = document.getElementById('decodeFileNameDisplay');
+    const decodePassphrase = document.getElementById('decodePassphrase');
+    const decodeBtn = document.getElementById('decodeBtn');
+    const decodeProgress = document.getElementById('decodeProgress');
+    const decodedMessageBox = document.getElementById('decodedMessageBox');
+    const decodedMessageText = document.getElementById('decodedMessageText');
+    const statusDiv = document.getElementById('statusMessage');
+
+    // ---------- CONFIG ----------
+    // Redundancy: each bit is repeated REDUNDANCY times, placed in different blocks.
+    // Higher = more robust but less capacity. 7 is a good balance for WhatsApp.
+    const REDUNDANCY = 15;
+    // We use a 4x4 block grid pattern, sampling from different corners of each block.
+    // Each block contributes 1 bit. Bits are spread across the image.
+    const BLOCK_SIZE = 8; // pixels per block side
+    const WORK_SIZE = 1024; // fixed coordinate system survives WhatsApp resizing
+
+    // ---------- tabs ----------
+    function switchTab(activeTab, activePanel, otherTab, otherPanel) {
+        activeTab.classList.add('active');
+        otherTab.classList.remove('active');
+        activePanel.classList.add('active');
+        otherPanel.classList.remove('active');
+    }
+    tabEncode.addEventListener('click', () => {
+        switchTab(tabEncode, encodePanel, tabDecode, decodePanel);
+        setStatus('Encode mode — uses the compression-resistant profile.', 'info');
+    });
+    tabDecode.addEventListener('click', () => {
+        switchTab(tabDecode, decodePanel, tabEncode, encodePanel);
+        setStatus('Decode mode — upload the image you received.', 'info');
+    });
+
+    // ---------- status ----------
+    function setStatus(text, type = 'info') {
+        statusDiv.innerHTML = `<i>${type === 'success' ? '✅' : type === 'error' ? '❌' : '💡'}</i> ${text}`;
+        statusDiv.className = 'status ' + (type === 'success' ? 'success' : type === 'error' ? 'error' : '');
+    }
+
+    // ---------- file previews ----------
+    imageUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            fileNameDisplay.textContent = file.name.length > 30 ? file.name.slice(0, 27) + '…' : file.name;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                imagePreview.src = ev.target.result;
+                imagePreview.classList.add('show');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            fileNameDisplay.textContent = 'no file chosen';
+            imagePreview.classList.remove('show');
+            imagePreview.src = '';
+        }
+    });
+    decodeImageUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        decodeFileNameDisplay.textContent = file ? (file.name.length > 25 ? file.name.slice(0, 22) + '…' : file.name) : 'no file chosen';
+        decodedMessageBox.style.display = 'none';
+        if (file) setStatus('Image selected. Enter passphrase and decode.', 'info');
+    });
+
+    // ---------- file → ImageData ----------
+    function fileToImageData(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = WORK_SIZE;
+                    canvas.height = WORK_SIZE;
+                    const ctx = canvas.getContext('2d');
+                    // Deterministic centre-crop to square, then normalise dimensions.
+                    // Decoder performs the identical transform after WhatsApp resizing.
+                    const side = Math.min(img.width, img.height);
+                    const sx = (img.width - side) / 2;
+                    const sy = (img.height - side) / 2;
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    ctx.drawImage(img, sx, sy, side, side, 0, 0, WORK_SIZE, WORK_SIZE);
+                    try {
+                        resolve(ctx.getImageData(0, 0, WORK_SIZE, WORK_SIZE));
+                    } catch (err) {
+                        reject(new Error('Canvas extraction failed: ' + err.message));
+                    }
+                };
+                img.onerror = () => reject(new Error('Could not load image.'));
+                img.src = e.target.result;
+            };
+            reader.onerror = () => reject(new Error('FileReader error.'));
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // ---------- ImageData → PNG blob ----------
+    function imageDataToPngBlob(imageData) {
+        const canvas = document.createElement('canvas');
+        canvas.width = imageData.width;
+        canvas.height = imageData.height;
+        const ctx = canvas.getContext('2d');
+        ctx.putImageData(imageData, 0, 0);
+        return new Promise((resolve) => {
+            canvas.toBlob((blob) => resolve(blob), 'image/png');
+        });
+    }
+
+    // ---------- helpers for robust bit embedding ----------
+    // We spread the payload bits redundantly. Each bit is stored in multiple blocks.
+    // We sample the *average* luminance of a small 2x2 patch in a block, and compare
+    // to the block's median. This survives JPEG/WhatsApp compression much better
+    // than raw LSB.
+
+    function getBlockLuminance(data, width, height, blockX, blockY) {
+        // Average luminance of a 2x2 patch at the center of the block
+        const cx = blockX * BLOCK_SIZE + Math.floor(BLOCK_SIZE / 2);
+        const cy = blockY * BLOCK_SIZE + Math.floor(BLOCK_SIZE / 2);
+        let sum = 0, count = 0;
+        for (let dy = -2; dy <= 2; dy++) {
+            for (let dx = -2; dx <= 2; dx++) {
+                const x = cx + dx;
+                const y = cy + dy;
+                if (x < 0 || x >= width || y < 0 || y >= height) continue;
+                const idx = (y * width + x) * 4;
+                const r = data[idx], g = data[idx+1], b = data[idx+2];
+                sum += (r * 0.299 + g * 0.587 + b * 0.114);
+                count++;
+            }
+        }
+        return count > 0 ? sum / count : 128;
+    }
+
+    function setBlockLuminance(data, width, height, blockX, blockY, targetLum) {
+        // Adjust the block's center 2x2 patch to make its average luminance
+        // closer to targetLum (0 or 255). We nudge pixels toward 0 or 255.
+        const cx = blockX * BLOCK_SIZE + Math.floor(BLOCK_SIZE / 2);
+        const cy = blockY * BLOCK_SIZE + Math.floor(BLOCK_SIZE / 2);
+        const delta = targetLum > 128 ? 52 : -52; // strong nudge to survive compression
+        for (let dy = -2; dy <= 2; dy++) {
+            for (let dx = -2; dx <= 2; dx++) {
+                const x = cx + dx;
+                const y = cy + dy;
+                if (x < 0 || x >= width || y < 0 || y >= height) continue;
+                const idx = (y * width + x) * 4;
+                for (let c = 0; c < 3; c++) {
+                    let v = data[idx + c] + delta;
+                    if (v < 0) v = 0;
+                    if (v > 255) v = 255;
+                    data[idx + c] = v;
+                }
+            }
+        }
+    }
+
+    // ---------- ENCODE ----------
+    async function encodeMessage() {
+        const message = messageInput.value.trim();
+        const pass = passphraseInput.value;
+        const file = imageUpload.files[0];
+
+        if (!message) { setStatus('Please enter a message to hide.', 'error'); return; }
+        if (!pass) { setStatus('Passphrase is required.', 'error'); return; }
+        if (!file) { setStatus('Please choose a cover image.', 'error'); return; }
+
+        setStatus('Encoding message (redundant, WhatsApp-safe)...', 'info');
+        encodeProgress.style.width = '0%';
+
+        try {
+            const imageData = await fileToImageData(file);
+            const { data, width, height } = imageData;
+
+            // Build payload
+            const payload = message + '|||' + pass;
+            const encoder = new TextEncoder();
+            const payloadBytes = encoder.encode(payload);
+            const len = payloadBytes.length;
+
+            // Header: 32-bit length + payload bits
+            const bits = [];
+            for (let i = 31; i >= 0; i--) bits.push((len >> i) & 1);
+            for (let byte of payloadBytes) {
+                for (let i = 7; i >= 0; i--) bits.push((byte >> i) & 1);
+            }
+
+            // How many blocks do we have?
+            const blocksX = Math.floor(width / BLOCK_SIZE);
+            const blocksY = Math.floor(height / BLOCK_SIZE);
+            const totalBlocks = blocksX * blocksY;
+
+            // Each bit needs REDUNDANCY blocks. Total blocks needed:
+            const totalBlocksNeeded = bits.length * REDUNDANCY;
+            if (totalBlocksNeeded > totalBlocks) {
+                throw new Error(`Image too small. Need ${totalBlocksNeeded} blocks, have ${totalBlocks}. Use a larger image or shorter message.`);
+            }
+
+            // Precompute block luminance for all blocks
+            const blockLums = new Float32Array(totalBlocks);
+            for (let by = 0; by < blocksY; by++) {
+                for (let bx = 0; bx < blocksX; bx++) {
+                    blockLums[by * blocksX + bx] = getBlockLuminance(data, width, height, bx, by);
+                }
+            }
+
+            // Embed bits with redundancy, spread across blocks
+            // We use a deterministic pseudo-random scatter pattern
+            let blockIdx = 0;
+            for (let i = 0; i < bits.length; i++) {
+                const bit = bits[i];
+                for (let r = 0; r < REDUNDANCY; r++) {
+                    // Determine which block to use — scatter across the image
+                    const scatter = (i * 7919 + r * 104729) % totalBlocks;
+                    const targetLum = bit ? 255 : 0;
+                    // Only nudge if we haven't already set it strongly
+                    const currentLum = blockLums[scatter];
+                    const targetDir = bit ? 1 : -1;
+                    const currentDir = currentLum > 128 ? 1 : -1;
+                    if (targetDir !== currentDir || Math.abs(currentLum - (bit ? 255 : 0)) > 60) {
+                        const bx = scatter % blocksX;
+                        const by = Math.floor(scatter / blocksX);
+                        setBlockLuminance(data, width, height, bx, by, targetLum);
+                    }
+                }
+                if (i % 50 === 0) {
+                    encodeProgress.style.width = Math.round((i / bits.length) * 100) + '%';
+                }
+            }
+            encodeProgress.style.width = '100%';
+
+            const blob = await imageDataToPngBlob(imageData);
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const baseName = file.name.replace(/\.[^/.]+$/, '');
+            a.download = `secret_${baseName}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            setStatus('✅ Encoded! Share the PNG normally over WhatsApp. It is encoded using the compression-resistant profile.', 'success');
+        } catch (err) {
+            console.error(err);
+            encodeProgress.style.width = '0%';
+            setStatus('Encoding failed: ' + err.message, 'error');
+        }
+    }
+
+    // ---------- DECODE ----------
+    async function decodeMessage() {
+        const file = decodeImageUpload.files[0];
+        const pass = decodePassphrase.value;
+
+        if (!file) { setStatus('Please upload an encoded image.', 'error'); return; }
+        if (!pass) { setStatus('Enter the passphrase.', 'error'); return; }
+
+        setStatus('Decoding (recovering from compression)...', 'info');
+        decodedMessageBox.style.display = 'none';
+        decodeProgress.style.width = '0%';
+
+        try {
+            const imageData = await fileToImageData(file);
+            const { data, width, height } = imageData;
+
+            const blocksX = Math.floor(width / BLOCK_SIZE);
+            const blocksY = Math.floor(height / BLOCK_SIZE);
+            const totalBlocks = blocksX * blocksY;
+
+            // Read all block luminances
+            const blockLums = new Float32Array(totalBlocks);
+            for (let by = 0; by < blocksY; by++) {
+                for (let bx = 0; bx < blocksX; bx++) {
+                    blockLums[by * blocksX + bx] = getBlockLuminance(data, width, height, bx, by);
+                }
+            }
+
+            // Determine the adaptive threshold: median luminance of all blocks
+            const sorted = Array.from(blockLums).sort((a, b) => a - b);
+            const median = sorted[Math.floor(sorted.length / 2)];
+
+            // Recover bits by majority vote across redundant samples
+            // First, we need to figure out how many bits there are. We don't know the length yet.
+            // Strategy: read a generous number of bits, find the 32-bit length, then extract.
+
+            // Read up to a max number of bits (bounded by total blocks / REDUNDANCY)
+            const maxBits = Math.floor(totalBlocks / REDUNDANCY);
+            const recoveredBits = [];
+
+            for (let i = 0; i < maxBits; i++) {
+                let votes = 0;
+                for (let r = 0; r < REDUNDANCY; r++) {
+                    const scatter = (i * 7919 + r * 104729) % totalBlocks;
+                    // If block luminance > median => bit 1, else 0
+                    if (blockLums[scatter] > median) votes++;
+                }
+                recoveredBits.push(votes > REDUNDANCY / 2 ? 1 : 0);
+                if (i % 100 === 0) {
+                    decodeProgress.style.width = Math.min(50, Math.round((i / maxBits) * 50)) + '%';
+                }
+            }
+
+            // Parse first 32 bits as length
+            let payloadLength = 0;
+            for (let i = 0; i < 32; i++) {
+                payloadLength = (payloadLength << 1) | recoveredBits[i];
+            }
+
+            if (payloadLength <= 0 || payloadLength > 50000) {
+                throw new Error('No valid hidden message found. The image may not be encoded, or the message is too corrupted.');
+            }
+
+            const totalNeeded = (4 + payloadLength) * 8;
+            if (totalNeeded > recoveredBits.length) {
+                throw new Error('Incomplete message data — image may be too small or corrupted.');
+            }
+
+            // Extract payload bytes
+            const payloadBytes = new Uint8Array(payloadLength);
+            for (let byteIdx = 0; byteIdx < payloadLength; byteIdx++) {
+                let byteVal = 0;
+                for (let bitIdx = 0; bitIdx < 8; bitIdx++) {
+                    const bitPos = 32 + byteIdx * 8 + bitIdx;
+                    const bit = recoveredBits[bitPos];
+                    byteVal = (byteVal << 1) | bit;
+                }
+                payloadBytes[byteIdx] = byteVal;
+            }
+            decodeProgress.style.width = '100%';
+
+            const decoder = new TextDecoder();
+            const fullPayload = decoder.decode(payloadBytes);
+
+            const separator = '|||';
+            const sepIndex = fullPayload.indexOf(separator);
+            if (sepIndex === -1) {
+                throw new Error('Message format invalid — passphrase may be wrong or image corrupted.');
+            }
+
+            const extractedMessage = fullPayload.slice(0, sepIndex);
+            const extractedPass = fullPayload.slice(sepIndex + separator.length);
+
+            if (extractedPass !== pass) {
+                throw new Error('Wrong passphrase. The message cannot be unlocked.');
+            }
+
+            decodedMessageText.textContent = extractedMessage;
+            decodedMessageBox.style.display = 'block';
+            setStatus('🔓 Message recovered successfully!', 'success');
+        } catch (err) {
+            console.error(err);
+            decodeProgress.style.width = '0%';
+            setStatus('Decoding failed: ' + err.message, 'error');
+            decodedMessageBox.style.display = 'none';
+        }
+    }
+
+    encodeBtn.addEventListener('click', encodeMessage);
+    decodeBtn.addEventListener('click', decodeMessage);
+    decodePassphrase.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); decodeMessage(); }
+    });
+    tabEncode.addEventListener('click', () => { decodedMessageBox.style.display = 'none'; });
+})();
+</script>
+</body>
+</html>

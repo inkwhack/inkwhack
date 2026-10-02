@@ -18,7 +18,7 @@ const document={
 };
 const context={console,require,document,crypto:globalThis.crypto,TextEncoder,TextDecoder,Uint8Array,Uint8ClampedArray,Float64Array,Blob,URL,setTimeout,clearTimeout,Image:function(){}};
 context.window=context;
-vm.createContext(context);vm.runInContext(source,context);
+vm.createContext(context);vm.runInContext(fs.readFileSync("gallery-codec.js","utf8"),context);vm.runInContext(source,context);
 const missingIds=[...elements.keys()].filter(id=>id&&!declaredIds.has(id)&&!id.startsWith("input["));
 assert.deepEqual(missingIds,[],`JavaScript references missing element IDs: ${missingIds.join(", ")}`);
 
