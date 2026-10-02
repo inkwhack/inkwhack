@@ -1,0 +1,130 @@
+<!-- /// Deep Codex capture
+/// Captured: 2026-10-02T20:10:09.098933+00:00
+/// Capture: 1f262326afe312caa9d51514043e65d085c84f20527993720793f0ffa6744083
+/// File: index.html
+/// End capture -->
+<!DOCTYPE html>
+<html lang="en" data-theme="original">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Cat Age Calculator · Human Years</title>
+
+  <!-- Prevent flash of wrong theme: apply saved theme before CSS paints -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('catAgeTheme');
+        if (saved) document.documentElement.setAttribute('data-theme', saved);
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="app-wrapper">
+
+    <!-- Header with theme selector -->
+    <header class="app-header">
+      <div class="header-top">
+        <div class="logo-area">
+          <span class="cat-emoji" aria-hidden="true">🐱</span>
+          <h1>Cat Age Calculator</h1>
+        </div>
+
+        <!-- THEME SELECTOR -->
+        <div class="theme-selector" id="theme-selector">
+          <button
+            type="button"
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="theme-panel"
+            title="Choose a theme"
+          >
+            <span class="theme-toggle-icon" id="theme-toggle-icon">🎨</span>
+            <span class="theme-toggle-label" id="theme-toggle-label">Original</span>
+            <span class="theme-toggle-caret" aria-hidden="true">▾</span>
+          </button>
+
+          <div class="theme-panel" id="theme-panel" role="menu" aria-label="Theme options" hidden>
+            <div class="theme-panel-header">Choose a theme</div>
+            <div class="theme-options" id="theme-options"><!-- filled by JS --></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="subtitle">Find out how old your cat is in human years</p>
+    </header>
+
+    <!-- Main calculator card -->
+    <section class="calculator-card" aria-label="Cat age calculator">
+      <form id="cat-age-form" novalidate>
+        <div class="input-group">
+          <label for="cat-name">Cat's Name <span class="optional">(optional)</span></label>
+          <input type="text" id="cat-name" name="catName" placeholder="e.g. Milo, Luna, Oliver" autocomplete="off">
+        </div>
+
+        <div class="age-row">
+          <div class="input-group half">
+            <label for="cat-years">Years</label>
+            <input type="number" id="cat-years" name="catYears" min="0" max="30" step="1" value="0" inputmode="numeric">
+          </div>
+          <div class="input-group half">
+            <label for="cat-months">Months</label>
+            <input type="number" id="cat-months" name="catMonths" min="0" max="11" step="1" value="0" inputmode="numeric">
+          </div>
+        </div>
+
+        <button type="button" id="calculate-btn" class="btn-calculate">
+          <span class="btn-icon">🐾</span> Calculate Age
+        </button>
+
+        <div id="validation-message" class="validation-message" role="alert"></div>
+      </form>
+    </section>
+
+    <!-- Result area -->
+    <section id="result-section" class="result-section hidden" aria-live="polite">
+      <div class="result-card">
+        <div class="result-header">
+          <span class="result-cat-icon">🐱</span>
+          <h2 id="result-greeting">Milo is 7 years old</h2>
+        </div>
+
+        <p class="result-label">That's approximately...</p>
+        <div class="human-age-big" id="human-age-big">44 Human Years</div>
+
+        <div class="comparison">
+          <div class="comparison-item">
+            <span class="comparison-label">Cat Age</span>
+            <span class="comparison-value" id="cat-age-comparison">7 Years</span>
+          </div>
+          <div class="comparison-arrow">→</div>
+          <div class="comparison-item">
+            <span class="comparison-label">Human Age</span>
+            <span class="comparison-value" id="human-age-comparison">44 Years</span>
+          </div>
+        </div>
+
+        <button type="button" id="reset-btn" class="btn-reset">
+          <span class="btn-icon">🔄</span> Calculate Again
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>🐈 Based on common veterinary guidelines: 1 year = 15 human years, 2 years = 24, then +4 per year.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

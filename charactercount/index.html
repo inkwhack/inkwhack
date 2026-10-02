@@ -1,0 +1,356 @@
+<!-- /// Deep Codex capture
+/// Captured: 2026-10-02T20:13:00.634961+00:00
+/// Capture: 19e1c4009aefa25baef4239d35464af30a4b00fbf9a3d526197544b918b0a7ea
+/// File: index.html
+/// End capture -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Character Counter</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 700px;
+    padding: 32px;
+  }
+
+  h1 {
+    font-size: 24px;
+    color: #2d3748;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h1::before {
+    content: "✍️";
+    font-size: 26px;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 16px;
+    font-size: 16px;
+    font-family: inherit;
+    line-height: 1.6;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  textarea:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102,126,234,0.15);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .stat {
+    background: #f7fafc;
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    border: 1px solid #edf2f7;
+    transition: transform 0.15s, background 0.2s;
+  }
+
+  .stat:hover {
+    transform: translateY(-2px);
+    background: #edf2f7;
+  }
+
+  .stat .value {
+    font-size: 26px;
+    font-weight: 700;
+    color: #667eea;
+    display: block;
+    line-height: 1.2;
+  }
+
+  .stat .label {
+    font-size: 12px;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+    font-weight: 600;
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  button {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-family: inherit;
+  }
+
+  button:active { transform: scale(0.97); }
+
+  .btn-clear {
+    background: #fed7d7;
+    color: #c53030;
+  }
+  .btn-clear:hover { background: #feb2b2; }
+
+  .btn-copy {
+    background: #667eea;
+    color: #fff;
+  }
+  .btn-copy:hover { background: #5a67d8; }
+
+  .limit-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    font-size: 14px;
+    color: #4a5568;
+  }
+
+  .limit-row input {
+    width: 90px;
+    padding: 8px 10px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    font-family: inherit;
+  }
+
+  .limit-row input:focus { border-color: #667eea; }
+
+  .over-limit { color: #e53e3e !important; }
+  .warning { color: #dd6b20 !important; }
+
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #2d3748;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Character Counter</h1>
+
+  <textarea id="input" placeholder="Type or paste your text here..."></textarea>
+
+  <div class="limit-row">
+    <label for="limit">Character limit:</label>
+    <input type="number" id="limit" min="1" placeholder="none">
+    <span id="limitStatus"></span>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="value" id="chars">0</span>
+      <span class="label">Characters</span>
+    </div>
+    <div class="stat">
+      <span class="value" id="charsNoSpace">0</span>
+      <span class="label">No Spaces</span>
+    </div>
+    <div class="stat">
+      <span class="value" id="words">0</span>
+      <span class="label">Words</span>
+    </div>
+    <div class="stat">
+      <span class="value" id="sentences">0</span>
+      <span class="label">Sentences</span>
+    </div>
+    <div class="stat">
+      <span class="value" id="paragraphs">0</span>
+      <span class="label">Paragraphs</span>
+    </div>
+    <div class="stat">
+      <span class="value" id="lines">0</span>
+      <span class="label">Lines</span>
+    </div>
+    <div class="stat">
+      <span class="value" id="readingTime">0s</span>
+      <span class="label">Read Time</span>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-copy" id="copyBtn">📋 Copy Text</button>
+    <button class="btn-clear" id="clearBtn">🗑️ Clear</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const input = document.getElementById('input');
+  const limitInput = document.getElementById('limit');
+  const limitStatus = document.getElementById('limitStatus');
+
+  const els = {
+    chars: document.getElementById('chars'),
+    charsNoSpace: document.getElementById('charsNoSpace'),
+    words: document.getElementById('words'),
+    sentences: document.getElementById('sentences'),
+    paragraphs: document.getElementById('paragraphs'),
+    lines: document.getElementById('lines'),
+    readingTime: document.getElementById('readingTime'),
+    charsStat: document.getElementById('chars').parentElement
+  };
+
+  function updateStats() {
+    const text = input.value;
+
+    // Characters (including spaces)
+    const charCount = text.length;
+
+    // Characters (excluding whitespace)
+    const charNoSpace = text.replace(/\s/g, '').length;
+
+    // Words: sequences of non-whitespace characters
+    const wordCount = text.trim() === ''
+      ? 0
+      : text.trim().split(/\s+/).length;
+
+    // Sentences: split on . ! ? followed by space/end
+    const sentenceCount = text.trim() === ''
+      ? 0
+      : (text.match(/[^.!?]*[.!?]+(\s|$)/g) || []).filter(s => s.trim()).length;
+
+    // Paragraphs: blocks separated by blank lines
+    const paragraphCount = text.trim() === ''
+      ? 0
+      : text.trim().split(/\n\s*\n/).filter(p => p.trim()).length;
+
+    // Lines
+    const lineCount = text === '' ? 0 : text.split('\n').length;
+
+    // Reading time (avg 200 words/min)
+    const minutes = wordCount / 200;
+    let readTime;
+    if (wordCount === 0) readTime = '0s';
+    else if (minutes < 1) readTime = Math.ceil(minutes * 60) + 's';
+    else readTime = minutes.toFixed(1) + 'm';
+
+    els.chars.textContent = charCount;
+    els.charsNoSpace.textContent = charNoSpace;
+    els.words.textContent = wordCount;
+    els.sentences.textContent = sentenceCount;
+    els.paragraphs.textContent = paragraphCount;
+    els.lines.textContent = lineCount;
+    els.readingTime.textContent = readTime;
+
+    // Character limit feedback
+    const limit = parseInt(limitInput.value, 10);
+    if (!isNaN(limit) && limit > 0) {
+      const remaining = limit - charCount;
+      if (remaining < 0) {
+        els.chars.classList.add('over-limit');
+        limitStatus.textContent = `${Math.abs(remaining)} over limit`;
+        limitStatus.className = 'over-limit';
+      } else if (remaining <= limit * 0.1) {
+        els.chars.classList.remove('over-limit');
+        limitStatus.textContent = `${remaining} remaining`;
+        limitStatus.className = 'warning';
+      } else {
+        els.chars.classList.remove('over-limit');
+        limitStatus.textContent = `${remaining} remaining`;
+        limitStatus.className = '';
+      }
+    } else {
+      els.chars.classList.remove('over-limit');
+      limitStatus.textContent = '';
+    }
+  }
+
+  // Toast helper
+  let toastTimer;
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+
+  // Copy
+  document.getElementById('copyBtn').addEventListener('click', async () => {
+    if (!input.value) { showToast('Nothing to copy'); return; }
+    try {
+      await navigator.clipboard.writeText(input.value);
+      showToast('Copied to clipboard!');
+    } catch {
+      input.select();
+      document.execCommand('copy');
+      showToast('Copied to clipboard!');
+    }
+  });
+
+  // Clear
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    input.value = '';
+    updateStats();
+    input.focus();
+  });
+
+  // Events
+  input.addEventListener('input', updateStats);
+  limitInput.addEventListener('input', updateStats);
+
+  // Init
+  updateStats();
+</script>
+
+</body>
+</html>
