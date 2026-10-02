@@ -1,0 +1,6 @@
+export const KG_PER_LB=0.45359237;
+export const displayWeight=(kg,unit)=>unit==='kg'?kg:kg/KG_PER_LB;
+export const toKg=(weight,unit)=>unit==='kg'?weight:weight*KG_PER_LB;
+export const ordered=readings=>[...readings].sort((a,b)=>a.date.localeCompare(b.date)||a.id.localeCompare(b.id));
+export function stats(readings,height){const list=ordered(readings),first=list[0],last=list.at(-1);if(!last)return null;const days=(Date.parse(last.date)-Date.parse(first.date))/86400000;return {first,last,change:last.kg-first.kg,days,weekly:days>0?(last.kg-first.kg)*7/days:0,bmi:height>0?last.kg/(height/100)**2:null};}
+export function validData(data){return data&&data.version===1&&data.profile&&['kg','lbs'].includes(data.profile.unit)&&['cm','ft'].includes(data.profile.heightUnit)&&['lose','gain','maintain'].includes(data.profile.goal)&&Number.isFinite(data.profile.height)&&data.profile.height>=50&&data.profile.height<=260&&Array.isArray(data.readings)&&data.readings.every(r=>typeof r.id==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(r.date)&&!Number.isNaN(Date.parse(r.date))&&new Date(r.date+'T12:00:00Z').toISOString().slice(0,10)===r.date&&Number.isFinite(r.kg)&&r.kg>0&&r.kg<=700&&(r.fat==null||(Number.isFinite(r.fat)&&r.fat>=0&&r.fat<=100))&&typeof r.note==='string'&&typeof r.fasting==='string')&&new Set(data.readings.map(r=>r.id)).size===data.readings.length;}
