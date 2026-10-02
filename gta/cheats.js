@@ -1,0 +1,42 @@
+// Factual code sequences checked against GTA BOOM and Vandal, 2 October 2026.
+// Xbox inputs are the corresponding physical buttons; extra cheats have no combo.
+const rows = [
+['Invincibility','Player','PAINKILLER','7246545537','RIGHT X RIGHT LEFT RIGHT R1 RIGHT LEFT X TRIANGLE','Five minutes of invincibility. Re-enter when the timer expires.'],
+['Full health & armour','Player','TURTLE','887853','CIRCLE L1 TRIANGLE R2 X SQUARE CIRCLE RIGHT SQUARE L1 L1 L1','Refill health and armour.'],
+['Recharge special ability','Player','POWERUP','7693787','X X SQUARE R1 L1 X RIGHT LEFT X','Top up your character’s special ability meter.'],
+['Lower wanted level','Player','LAWYERUP','52993787','R1 R1 CIRCLE R2 RIGHT LEFT RIGHT LEFT RIGHT LEFT','Remove one wanted star per use.'],
+['Raise wanted level','Player','FUGITIVE','38448483','R1 R1 CIRCLE R2 LEFT RIGHT LEFT RIGHT LEFT RIGHT','Add one wanted star per use.'],
+['Fast run','Movement','CATCHME','2282463','TRIANGLE LEFT RIGHT RIGHT L2 L1 SQUARE','Move faster on foot.'],
+['Fast swim','Movement','GOTGILLS','46844557','LEFT LEFT L1 RIGHT RIGHT R2 LEFT L2 RIGHT','Swim faster through the water.'],
+['Super jump','Movement','HOPTOIT','4678648','LEFT LEFT TRIANGLE TRIANGLE RIGHT RIGHT LEFT RIGHT SQUARE R1 R2','Hold the jump button for a bigger leap.'],
+['Drunk mode','Player','LIQUOR','547861','TRIANGLE RIGHT RIGHT LEFT RIGHT SQUARE CIRCLE LEFT','Wobbly movement and a tipsy camera.'],
+['Weapons & ammo','Combat','TOOLUP','866587','TRIANGLE R2 LEFT L1 X RIGHT TRIANGLE DOWN SQUARE L1 L1 L1','Receive a set of weapons and ammunition; this is not infinite ammo.'],
+['Explosive bullets','Combat','HIGHEX','444439','RIGHT SQUARE X LEFT R1 R2 LEFT RIGHT RIGHT L1 L1 L1','Shots detonate on impact.'],
+['Explosive punches','Combat','HOTHANDS','46842637','RIGHT LEFT X TRIANGLE R1 CIRCLE CIRCLE CIRCLE L2','Give melee hits an explosive finish.'],
+['Flaming bullets','Combat','INCENDIARY','4623634279','L1 R1 SQUARE R1 LEFT R2 R1 LEFT SQUARE RIGHT L1 L1','Shots can set targets alight.'],
+['Slow-motion aiming','Combat','DEADEYE','3323393','SQUARE L2 R1 TRIANGLE LEFT SQUARE L2 RIGHT X','Repeat to cycle aiming slowdown; the fifth entry resets it.'],
+['Parachute','Movement','SKYDIVE','7593483','LEFT RIGHT L1 L2 R1 R2 R2 LEFT LEFT RIGHT L1','Add a parachute to your equipment.'],
+['Skyfall','Movement','SKYFALL','7593255','L1 L2 R1 R2 LEFT RIGHT LEFT RIGHT L1 L2 R1 R2 LEFT RIGHT LEFT RIGHT','Drop from the sky. A parachute cannot be deployed during this fall.'],
+['Change weather','World','MAKEITRAIN','6253487246','R2 X L1 L1 L2 L2 L2 SQUARE','Repeat to cycle weather conditions.'],
+['Moon gravity','World','FLOATER','3562837','LEFT LEFT L1 R1 L1 RIGHT LEFT L1 LEFT','Give vehicles floatier jumps.'],
+['Slippery cars','World','SNOWDAY','7669329','TRIANGLE R1 R1 LEFT R1 L1 R2 L1','Reduce vehicle traction for sideways fun.'],
+['Slow motion','World','SLOWMO','756966','TRIANGLE LEFT RIGHT RIGHT SQUARE R2 R1','Three increasing slowdown levels; the fourth entry resets it.'],
+['BMX bicycle','Vehicles','BANDIT','226348','LEFT LEFT RIGHT RIGHT LEFT RIGHT SQUARE CIRCLE TRIANGLE R1 R2','Spawn a BMX.'],
+['Buzzard helicopter','Vehicles','BUZZOFF','2899633','CIRCLE CIRCLE L1 CIRCLE CIRCLE CIRCLE L1 L2 R1 TRIANGLE CIRCLE TRIANGLE','Spawn an armed Buzzard. Leave plenty of space.'],
+['Caddy golf cart','Vehicles','HOLEIN1','4653461','CIRCLE L1 LEFT R1 L2 X R1 L1 CIRCLE X','Spawn a golf cart.'],
+['Comet sports car','Vehicles','COMET','26638','R1 CIRCLE R2 RIGHT L1 L2 X X SQUARE R1','Spawn a Comet.'],
+['Duster plane','Vehicles','FLYSPRAY','35977729','RIGHT LEFT R1 R1 R1 LEFT TRIANGLE TRIANGLE X CIRCLE L1 L1','Spawn a crop-dusting aircraft.'],
+['Stretch limousine','Vehicles','VINEWOOD','84639663','R2 RIGHT L2 LEFT LEFT R1 L1 CIRCLE RIGHT','Spawn a limousine.'],
+['PCJ-600 motorcycle','Vehicles','ROCKET','762538','R1 RIGHT LEFT RIGHT R2 LEFT RIGHT SQUARE RIGHT L2 L1 L1','Spawn a road motorcycle.'],
+['Rapid GT sports car','Vehicles','RAPIDGT','7274348','R2 L1 CIRCLE RIGHT L1 R1 RIGHT LEFT CIRCLE R2','Spawn a Rapid GT.'],
+['Sanchez dirt bike','Vehicles','OFFROAD','6337623','CIRCLE X L1 CIRCLE CIRCLE L1 CIRCLE R1 R2 L2 L1 L1','Spawn a dirt bike.'],
+['Stunt plane','Vehicles','BARNSTORM','227678676','CIRCLE RIGHT L1 L2 LEFT R1 L1 L1 LEFT LEFT X TRIANGLE','Spawn an aerobatic plane.'],
+['Trashmaster truck','Vehicles','TRASHED','872433','CIRCLE R1 CIRCLE R1 LEFT LEFT R1 L1 CIRCLE RIGHT','Spawn a rubbish truck.'],
+['Duke O’Death','Vehicles','DEATHCAR','33284227','','Unlock first: complete the Duel random event. Newer editions only.'],
+['Kraken submarine','Vehicles','BUBBLES','2822537','','Unlock first: complete the Wildlife Photography Challenge. Newer editions only.'],
+['Dodo seaplane','Vehicles','EXTINCT','3984628','','Unlock first: complete the Sea Plane random event. Newer editions only.'],
+['Director Mode','Extras','JRTALENT','57825368','','A shortcut to the creative mode, rather than a gameplay cheat. Newer editions only.'],
+['Black cellphone','Extras','','3673767','','Phone-only Easter egg: changes the phone and triggers an overhead explosion on foot. Newer editions only.']
+];
+const xboxMap={X:'A',SQUARE:'X',CIRCLE:'B',TRIANGLE:'Y',L1:'LB',R1:'RB',L2:'LT',R2:'RT'};
+window.CHEATS=rows.map(([name,category,pc,number,combo,note])=>({name,category,pc,phone:'1-999-'+number,ps:combo?combo.split(' '):[],xbox:combo?combo.split(' ').map(x=>xboxMap[x]||x):[],note,modern:!combo}));
