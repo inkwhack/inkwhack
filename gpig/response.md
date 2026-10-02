@@ -1,0 +1,620 @@
+Here is a complete HTML document that creates a guinea pig age calculator. You can run it directly in your browser.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guinea Pig Age Converter · Human Years</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f9f3e7 0%, #f0e7d6 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            margin: 0;
+            color: #3d2b1a;
+        }
+
+        .card {
+            max-width: 680px;
+            width: 100%;
+            background: #fffcf5;
+            border-radius: 2.5rem;
+            box-shadow: 0 20px 40px -12px rgba(90, 60, 30, 0.25),
+                        0 8px 24px -8px rgba(60, 40, 20, 0.15),
+                        inset 0 1px 0 #fff9ee;
+            padding: 2.2rem 2rem 2.5rem;
+            border: 1px solid #ede3d1;
+            transition: all 0.2s ease;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #4a3724;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.35rem;
+            flex-wrap: wrap;
+        }
+
+        h1 span {
+            background: #d9c8b0;
+            font-size: 1.6rem;
+            border-radius: 60px;
+            padding: 0.2rem 0.8rem;
+            line-height: 1.2;
+        }
+
+        .subhead {
+            font-size: 1rem;
+            color: #7a6a58;
+            margin-bottom: 2rem;
+            border-left: 4px solid #cdb79e;
+            padding-left: 1rem;
+            font-weight: 400;
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #5e4a34;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        label i {
+            font-style: normal;
+            font-size: 1.2rem;
+        }
+
+        .age-inputs {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .age-inputs input {
+            width: 120px;
+            padding: 0.85rem 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border: 2px solid #e2d4c2;
+            border-radius: 20px;
+            background: #ffffff;
+            color: #2d1f11;
+            outline: none;
+            transition: 0.2s;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .age-inputs input:focus {
+            border-color: #b3926e;
+            box-shadow: 0 0 0 4px rgba(179, 146, 110, 0.15);
+        }
+
+        .age-inputs select {
+            padding: 0.85rem 1.8rem 0.85rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border: 2px solid #e2d4c2;
+            border-radius: 20px;
+            background: #ffffff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%237a6a58" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>') no-repeat right 1rem center;
+            background-size: 1rem;
+            appearance: none;
+            color: #2d1f11;
+            outline: none;
+            cursor: pointer;
+            transition: 0.2s;
+            min-width: 110px;
+        }
+
+        .age-inputs select:focus {
+            border-color: #b3926e;
+            box-shadow: 0 0 0 4px rgba(179, 146, 110, 0.15);
+        }
+
+        .button-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.8rem;
+        }
+
+        .btn {
+            background: #b3926e;
+            border: none;
+            padding: 0.9rem 2rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: white;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.15s ease;
+            box-shadow: 0 6px 12px -6px rgba(120, 80, 45, 0.4);
+            letter-spacing: 0.3px;
+            border: 1px solid #a07e58;
+            flex: 1 0 auto;
+        }
+
+        .btn:hover {
+            background: #9f7d58;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 18px -8px rgba(120, 80, 45, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 4px 8px -4px rgba(120, 80, 45, 0.4);
+        }
+
+        .btn.secondary {
+            background: #e8ddd0;
+            color: #5e4a34;
+            border: 1px solid #d6c7b6;
+            box-shadow: 0 6px 12px -8px rgba(90, 70, 50, 0.2);
+            flex: 0.4 1 auto;
+        }
+
+        .btn.secondary:hover {
+            background: #ddd0c0;
+            transform: translateY(-2px);
+        }
+
+        .result-card {
+            background: #f5ede1;
+            border-radius: 2rem;
+            padding: 1.8rem 1.6rem;
+            margin: 1.8rem 0 1.2rem;
+            border: 1px solid #e2d4c2;
+            box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.8), 0 8px 12px -8px rgba(90, 60, 30, 0.2);
+            transition: 0.2s;
+        }
+
+        .human-age {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .human-age .label {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #6b5540;
+        }
+
+        .human-age .value {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #4a3724;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .human-age .value small {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #8a7864;
+            margin-left: 0.2rem;
+        }
+
+        .note {
+            font-size: 0.95rem;
+            color: #7a6a58;
+            background: #fcf7f0;
+            padding: 0.8rem 1.2rem;
+            border-radius: 60px;
+            display: inline-block;
+            border: 1px solid #e8ddd0;
+            margin-top: 0.4rem;
+        }
+
+        .stage-badge {
+            display: inline-block;
+            background: #d9c8b0;
+            color: #3d2b1a;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            margin-top: 0.2rem;
+        }
+
+        .chart-details {
+            margin-top: 2.2rem;
+            border-top: 1px dashed #d6c7b6;
+            padding-top: 1.8rem;
+        }
+
+        .chart-details summary {
+            font-weight: 600;
+            color: #6b5540;
+            cursor: pointer;
+            font-size: 1rem;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.2rem 0;
+            transition: 0.1s;
+            user-select: none;
+        }
+
+        .chart-details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .chart-details summary::before {
+            content: "📋";
+            font-size: 1.2rem;
+        }
+
+        .chart-details[open] summary::before {
+            content: "📖";
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 1.2rem;
+            border-radius: 20px;
+            border: 1px solid #e2d4c2;
+            background: #fffcf5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            min-width: 320px;
+        }
+
+        th {
+            background: #e8ddd0;
+            color: #4a3724;
+            font-weight: 600;
+            padding: 0.9rem 1rem;
+            text-align: left;
+            border-bottom: 2px solid #d6c7b6;
+        }
+
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #ede3d1;
+            color: #4a3724;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .footnote {
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+            color: #9b8a78;
+            text-align: center;
+            border-top: 1px solid #ede3d1;
+            padding-top: 1.2rem;
+        }
+
+        .footnote strong {
+            color: #7a6a58;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>
+            🐹 Guinea Pig Age
+            <span>→ human</span>
+        </h1>
+        <div class="subhead">
+            Convert your guinea pig's age to human years — stage‑based & realistic
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label><i>⏳</i> Your guinea pig's age</label>
+                <div class="age-inputs">
+                    <input type="number" id="ageValue" value="2" min="0" step="0.1" placeholder="Age">
+                    <select id="ageUnit">
+                        <option value="years" selected>Years</option>
+                        <option value="months">Months</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="button-row">
+                <button class="btn" id="convertBtn">Convert to human years</button>
+                <button class="btn secondary" id="resetBtn">Reset</button>
+            </div>
+        </div>
+
+        <!-- result area -->
+        <div class="result-card" id="resultCard">
+            <div class="human-age">
+                <span class="label">Human equivalent</span>
+                <span class="value" id="humanAgeDisplay">~ 40 <small>years</small></span>
+            </div>
+            <div id="stageDisplay" class="stage-badge">Adult</div>
+            <div class="note" id="noteDisplay">Based on average lifespan equivalence</div>
+        </div>
+
+        <!-- reference chart toggle -->
+        <details class="chart-details">
+            <summary>Reference chart & formula</summary>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Guinea pig age</th><th>Human equivalent</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1 month</td><td>~1–2 years</td></tr>
+                        <tr><td>3 months</td><td>~5–6 years</td></tr>
+                        <tr><td>6 months</td><td>~10–12 years</td></tr>
+                        <tr><td>1 year</td><td>~20–25 years</td></tr>
+                        <tr><td>2 years</td><td>~40–50 years</td></tr>
+                        <tr><td>3 years</td><td>~55–65 years</td></tr>
+                        <tr><td>4 years</td><td>~70–80 years</td></tr>
+                        <tr><td>5 years</td><td>~85–95 years</td></tr>
+                        <tr><td>6 years</td><td>~100–110 years</td></tr>
+                        <tr><td>7+ years</td><td>~115+ years</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="font-size:0.9rem; color:#7a6a58; margin-top:1rem;">
+                <strong>Quick rule:</strong> first year ≈ 20–25 human years, each additional year ≈ 10–15 human years.
+                Guinea pigs are seniors around 4 years; average lifespan 5–7 years.
+            </div>
+        </details>
+
+        <div class="footnote">
+            <strong>🐽 friendly reminder:</strong> every pig is unique — this is an estimate.
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const ageInput = document.getElementById('ageValue');
+            const unitSelect = document.getElementById('ageUnit');
+            const convertBtn = document.getElementById('convertBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const humanAgeDisplay = document.getElementById('humanAgeDisplay');
+            const stageDisplay = document.getElementById('stageDisplay');
+            const noteDisplay = document.getElementById('noteDisplay');
+
+            // ----- core conversion (stage based, returns human years and stage) -----
+            function convertGuineaToHuman(ageInYears) {
+                // Handle edge: negative or invalid
+                if (isNaN(ageInYears) || ageInYears < 0) return { years: 0, stage: 'Invalid', note: 'Please enter a valid age.' };
+
+                // For very young (0 to <1 month) — treat as 0 years but represent with days? we'll clamp.
+                if (ageInYears < 0.0833) { // less than ~1 month
+                    return { years: 1, stage: 'Baby', note: 'Newborn / baby stage (under 1 month)' };
+                }
+
+                // Convert to months for easier stage mapping
+                const months = ageInYears * 12;
+
+                // Stage based on months (following standard guinea pig stages)
+                let humanYears, stage, note;
+
+                if (months < 1) {
+                    // under 1 month
+                    humanYears = 1;
+                    stage = 'Baby';
+                    note = 'Newborn – eyes open, nursing';
+                } else if (months < 3) {
+                    // 1–3 months: ~2–5 human years
+                    // linear from 1 month (human 2) to 3 months (human 6)
+                    const t = (months - 1) / 2; // 0..1
+                    humanYears = 2 + t * 4;     // 2 → 6
+                    stage = 'Baby';
+                    note = 'Young pup – weaning, rapid growth';
+                } else if (months < 6) {
+                    // 3–6 months: 6 to 12 human years
+                    const t = (months - 3) / 3; // 0..1
+                    humanYears = 6 + t * 6;     // 6 → 12
+                    stage = 'Juvenile';
+                    note = 'Juvenile – still growing, playful';
+                } else if (months < 12) {
+                    // 6–12 months: 12 to 22 human years
+                    const t = (months - 6) / 6; // 0..1
+                    humanYears = 12 + t * 10;   // 12 → 22
+                    stage = 'Adolescent';
+                    note = 'Adolescent – nearing full size';
+                } else {
+                    // 1 year and above
+                    const years = ageInYears;
+                    if (years < 2) {
+                        // 1–2 years: ~22 to 45 (using midpoint of chart: 1yr=22, 2yr=45)
+                        const t = years - 1; // 0..1
+                        humanYears = 22 + t * 23; // 22 → 45
+                        stage = 'Young adult';
+                        note = 'Young adult – prime of life';
+                    } else if (years < 3) {
+                        // 2–3 years: 45 to 60 (2yr≈45, 3yr≈60)
+                        const t = years - 2; // 0..1
+                        humanYears = 45 + t * 15; // 45 → 60
+                        stage = 'Adult';
+                        note = 'Adult – mature, settled';
+                    } else if (years < 4) {
+                        // 3–4 years: 60 to 75 (3yr≈60, 4yr≈75)
+                        const t = years - 3;
+                        humanYears = 60 + t * 15; // 60 → 75
+                        stage = 'Mature adult';
+                        note = 'Mature adult – monitor health';
+                    } else if (years < 5) {
+                        // 4–5 years: 75 to 90 (4yr≈75, 5yr≈90)
+                        const t = years - 4;
+                        humanYears = 75 + t * 15; // 75 → 90
+                        stage = 'Senior';
+                        note = 'Senior – watch for age-related issues';
+                    } else if (years < 6) {
+                        // 5–6 years: 90 to 105
+                        const t = years - 5;
+                        humanYears = 90 + t * 15; // 90 → 105
+                        stage = 'Senior';
+                        note = 'Senior – extra care & checkups';
+                    } else if (years < 7) {
+                        // 6–7 years: 105 to 118
+                        const t = years - 6;
+                        humanYears = 105 + t * 13; // 105 → 118
+                        stage = 'Geriatric';
+                        note = 'Geriatric – gentle care, vet monitoring';
+                    } else {
+                        // 7+ years: starts at 118, + ~6 per year beyond (conservative)
+                        const extraYears = years - 7;
+                        humanYears = 118 + extraYears * 6; // each extra guinea year ≈ 6 human years (very old)
+                        stage = 'Geriatric';
+                        note = 'Exceptional longevity – very rare';
+                    }
+                }
+
+                // Round to nearest whole number for display, but keep one decimal if needed? we'll round to integer.
+                return { years: Math.round(humanYears * 10) / 10, stage, note };
+            }
+
+            // Update UI with a given age in years
+            function updateResult(ageInYears) {
+                const result = convertGuineaToHuman(ageInYears);
+                let displayValue = result.years;
+
+                // format: if integer, no decimal; else one decimal
+                let formatted;
+                if (Number.isInteger(displayValue)) {
+                    formatted = displayValue;
+                } else {
+                    formatted = displayValue.toFixed(1);
+                }
+
+                humanAgeDisplay.innerHTML = `~ ${formatted} <small>years</small>`;
+                stageDisplay.textContent = result.stage;
+                noteDisplay.textContent = result.note;
+            }
+
+            // Get current age in years from inputs
+            function getAgeInYears() {
+                let value = parseFloat(ageInput.value);
+                if (isNaN(value) || value < 0) value = 0;
+                const unit = unitSelect.value;
+                if (unit === 'months') {
+                    return value / 12;
+                } else {
+                    return value;
+                }
+            }
+
+            // main conversion handler
+            function handleConvert() {
+                let age = parseFloat(ageInput.value);
+                if (isNaN(age) || age < 0) {
+                    alert('Please enter a valid non‑negative age.');
+                    ageInput.value = 0;
+                    return;
+                }
+
+                const unit = unitSelect.value;
+                let ageInYears;
+                if (unit === 'months') {
+                    ageInYears = age / 12;
+                } else {
+                    ageInYears = age;
+                }
+
+                // optional: prevent extreme values ( >30 years is unrealistic )
+                if (ageInYears > 30) {
+                    alert('That seems too old for a guinea pig (max ~10 years). Please check the value.');
+                    // but still convert — we'll proceed but maybe clamp? we'll proceed.
+                }
+
+                updateResult(ageInYears);
+            }
+
+            // reset to defaults (2 years)
+            function handleReset() {
+                ageInput.value = 2;
+                unitSelect.value = 'years';
+                updateResult(2);
+            }
+
+            // update result automatically when unit changes (if value is present)
+            function handleUnitChange() {
+                // just re-convert using current value
+                const rawValue = parseFloat(ageInput.value);
+                if (!isNaN(rawValue) && rawValue >= 0) {
+                    // if user switches unit, we keep the numeric value but convert using new unit
+                    // This is expected: same number, different unit.
+                    handleConvert();
+                } else {
+                    // if invalid, set to default
+                    ageInput.value = 2;
+                    unitSelect.value = 'years';
+                    updateResult(2);
+                }
+            }
+
+            // initial update on page load
+            window.addEventListener('DOMContentLoaded', () => {
+                // set default 2 years
+                ageInput.value = 2;
+                unitSelect.value = 'years';
+                updateResult(2);
+            });
+
+            // attach event listeners
+            convertBtn.addEventListener('click', handleConvert);
+            resetBtn.addEventListener('click', handleReset);
+            unitSelect.addEventListener('change', handleUnitChange);
+            ageInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleConvert();
+                }
+            });
+
+            // also auto-convert on input change? not needed, but we can keep it.
+            // optional: use input event? maybe not, user might be typing. we'll leave.
+        })();
+    </script>
+</body>
+</html>
+```
+### How the Converter Works
+You can input your guinea pig's age and get a human-year estimate based on established life stages. The tool provides a clear result and a helpful reference chart.
+
+*   **Age Input:** Enter a number and choose whether it represents **years** or **months**. The converter automatically handles the math.
+*   **Core Logic:** The conversion uses a **stage-based model** rather than a simple multiplier. It accounts for rapid growth in the first year and slower aging later, which is more accurate for guinea pigs.
+*   **Visual Feedback:** The result shows a human-year value, a life stage badge (like "Adult" or "Senior"), and a brief note about that stage. You can also expand a **reference chart** to see the full conversion table.
